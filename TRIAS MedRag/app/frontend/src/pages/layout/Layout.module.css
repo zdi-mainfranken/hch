@@ -1,0 +1,95 @@
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100%;
+}
+
+.header {
+    background-color: #f9f8f6;
+    color: #333;
+    height: 80px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    border-bottom: none; /* 1px solid #e0e0e0; */
+}
+
+.headerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1.5rem;
+    height: 80px;
+}
+
+.mainContent {
+    flex: 1;
+    margin-top: 80px;
+    position: relative;
+    height: calc(100vh - 80px);
+    overflow: hidden;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.chariteLogo {
+    height: 60px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.headerButtonsContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    z-index: 10;
+    padding-top: 0.5rem;
+}
+
+.headerButton {
+    padding: 0.1rem;
+    position: relative;
+    z-index: 11;
+    height: 24px;
+    min-width: 24px;
+    transform: scale(0.85);
+}
+
+.headerButton :global(.ms-Button-label) {
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 10px;
+}
+
+.headerButton :global(.ms-Button-icon) {
+    font-size: 10px;
+}
+
+.menuToggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .headerContainer {
+        height: 70px;
+        padding: 0.5rem 1rem;
+    }
+
+    .headerButton,
+    .menuToggle {
+        height: 24px;
+        display: block;
+    }
+
+    .chariteLogo {
+        height: 50px;
+    }
+}

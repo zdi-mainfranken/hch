@@ -1,0 +1,128 @@
+/* Base Styles */
+.thoughtProcess {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    word-wrap: break-word;
+    padding-top: 0.75em;
+    padding-bottom: 0.75em;
+}
+
+/* Thought Process Components */
+.tList {
+    padding: 1.25em 1.25em 0 1.25em;
+    display: inline-block;
+    background: #e9e9e9;
+}
+
+.tListItem:last-child {
+    border-left: 0;
+}
+
+.tListItem::before {
+    position: absolute;
+    left: -18px;
+    top: -5px;
+    content: " ";
+    border: 8px solid #d1dbfa;
+    border-radius: 50%;
+    background: #123bb6;
+    height: 20px;
+    width: 20px;
+}
+
+.tStep {
+    color: #123bb6;
+    position: relative;
+    font-size: 0.875em;
+    margin-bottom: 0.5em;
+}
+
+.tCodeBlock {
+    max-height: 18.75em;
+}
+
+/* Citation Components */
+.citationImg {
+    max-width: 100%;
+    height: 28.125rem;
+    object-fit: contain;
+}
+
+.citationContainer {
+    background-color: #fff;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    margin: 1rem;
+}
+
+.citationIframe {
+    border: none;
+    border-radius: 0.75rem;
+    background-color: #fff;
+}
+
+/* PDF Viewer Components */
+.pdfContainer {
+    overflow-y: auto;
+    background-color: #f3f3f3;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.pdfDocument {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pdfPage {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    background-color: #fff;
+}
+
+.pdfPage canvas {
+    display: block;
+}
+
+.pdfLoading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.pdfRenderer {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.pageWrapper {
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.pdfPageCanvas {
+    display: block;
+}
+
+.pdfLoadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

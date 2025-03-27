@@ -1,0 +1,237 @@
+.questionInputContainer {
+    border-radius: 10px;
+    width: 100%;
+    padding: 0.6rem 1rem;
+    background: white;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+}
+
+.questionInputTextArea {
+    width: 100%;
+    line-height: 1.4rem;
+    font-size: 0.95rem;
+}
+
+.questionInputTextArea :global(.ms-TextField-fieldGroup) {
+    border: none;
+    background: transparent;
+}
+
+.questionInputTextArea :global(.ms-TextField-field) {
+    padding: 0.4rem 0;
+    font-size: 0.95rem;
+    color: #333;
+}
+
+.questionInputTextArea :global(.ms-TextField-field)::placeholder {
+    color: #999;
+}
+
+.questionInputButtonsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.questionInputButtonsContainer button {
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+    transform: scale(1);
+    will-change: transform;
+    background: transparent;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionInputButtonsContainer button::before,
+.questionInputButtonsContainer button::after,
+.questionInputButtonsContainer button:hover::before,
+.questionInputButtonsContainer button:hover::after,
+.questionInputButtonsContainer button:focus::before,
+.questionInputButtonsContainer button:focus::after {
+    display: none !important;
+    content: none !important;
+    background-color: transparent !important;
+    opacity: 0 !important;
+}
+
+.questionInputButtonsContainer button:hover {
+    transform: scale(1.2);
+    background-color: transparent !important;
+}
+
+.questionInputButtonsContainer button:disabled {
+    opacity: 0.5;
+}
+
+.questionInputButtonsContainer button:disabled:hover {
+    transform: scale(1);
+}
+
+.questionInputActions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    justify-content: space-between;
+}
+
+@media (min-width: 992px) {
+    .questionInputContainer {
+        height: auto;
+        min-height: 3rem;
+        padding: 0.6rem 1.2rem;
+    }
+
+    .questionInputTextArea :global(.ms-TextField-field) {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .questionInputContainer {
+        padding: 0.5rem 0.9rem;
+        min-height: 2.8rem;
+    }
+
+    .questionInputButtonsContainer button {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Standalone container for when the input is used outside the chat page */
+.standaloneContainer {
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e6e6e6;
+    background-color: white;
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+    width: 95%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.standaloneContainer:focus-within {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+    border-color: #d8d8d8;
+    transform: translateX(-50%) translateY(-2px);
+}
+
+/* Add media queries to match Chat.module.css */
+@media (min-width: 992px) {
+    .standaloneContainer {
+        bottom: 2rem;
+        width: 92%;
+        max-width: 900px;
+    }
+}
+
+@media (max-width: 768px) {
+    .standaloneContainer {
+        bottom: 1.5rem;
+        width: 95%;
+    }
+}
+
+/* Inline toggle buttons - minimalistischer und kleiner */
+.inlineSourceToggle {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 1px;
+    border: 1px solid #e8e8e8;
+    position: relative;
+    overflow: hidden;
+}
+
+.toggleButton {
+    border-radius: 20px !important;
+    padding: 3px 10px !important;
+    min-width: 60px !important;
+    height: 24px !important;
+    font-size: 12px !important;
+    font-weight: normal !important;
+    border: none !important;
+    background: transparent !important;
+    color: #777 !important;
+    margin: 0 !important;
+    transition: all 0.2s ease !important;
+    z-index: 1;
+    position: relative;
+}
+
+.toggleButtonActive {
+    color: #0066cc !important;
+    box-shadow: none !important;
+}
+
+.toggleButtonActive::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: white;
+    border-radius: 20px;
+    z-index: -1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Fix selector specificity issues for button styling */
+.questionInputButtonsContainer .toggleButton {
+    transform: none !important;
+    width: auto !important;
+    height: 24px !important;
+}
+
+.questionInputButtonsContainer .toggleButton:hover {
+    transform: none !important;
+    background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Ensure our send button still works correctly */
+.questionInputButtonsContainer button[size="large"] {
+    position: relative;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+    transform: scale(1);
+    will-change: transform;
+    background: transparent;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.questionInputButtonsContainer button[size="large"]:hover {
+    transform: scale(1.2);
+    background-color: transparent !important;
+}
+
+.questionInputButtonsContainer button[size="large"]:disabled {
+    opacity: 0.5;
+}
+
+.questionInputButtonsContainer button[size="large"]:disabled:hover {
+    transform: scale(1);
+}
