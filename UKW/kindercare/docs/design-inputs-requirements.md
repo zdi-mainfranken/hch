@@ -8,9 +8,7 @@ Improve structured follow-up care for children after intensive care through digi
 
 **Ein Intensivmediziner sagt**:
 
-```quote
 "Die Entlassung eines Patienten ist die erste Nachsorgeuntersuchung. Strukturierte Nachsorge gibt mir hilfreiches Feedback zur initialen Behandlung und garantiert fortwährenden Qualitätssicherung."
-```
 
 Note: Measures = Messparameter, NICHT Maßnahmen/Interventions
 
