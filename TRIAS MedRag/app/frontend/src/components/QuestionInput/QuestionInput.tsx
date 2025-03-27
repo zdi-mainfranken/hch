@@ -29,7 +29,7 @@ export const QuestionInput = ({
     initQuestion,
     showSpeechInput,
     showDocumentSourceToggle,
-    documentSource = "all",
+    documentSource = "multifiltrate",
     onDocumentSourceChange
 }: Props) => {
     const [question, setQuestion] = useState<string>("");
@@ -105,16 +105,16 @@ export const QuestionInput = ({
                     {showDocumentSourceToggle && (
                         <div className={styles.inlineSourceToggle}>
                             <Button
-                                className={`${styles.toggleButton} ${documentSource === "all" ? styles.toggleButtonActive : ""}`}
-                                onClick={() => onDocumentSourceChange && onDocumentSourceChange("all")}
-                            >
-                                Leitlinien
-                            </Button>
-                            <Button
                                 className={`${styles.toggleButton} ${documentSource === "multifiltrate" ? styles.toggleButtonActive : ""}`}
                                 onClick={() => onDocumentSourceChange && onDocumentSourceChange("multifiltrate")}
                             >
                                 Anleitungen
+                            </Button>
+                            <Button
+                                className={`${styles.toggleButton} ${documentSource === "leitlinien" ? styles.toggleButtonActive : ""}`}
+                                onClick={() => onDocumentSourceChange && onDocumentSourceChange("leitlinien")}
+                            >
+                                Leitlinien
                             </Button>
                             <Button
                                 className={`${styles.toggleButton} ${documentSource === "web" ? styles.toggleButtonActive : ""}`}
