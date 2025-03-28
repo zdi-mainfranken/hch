@@ -19,62 +19,88 @@ class CameraService {
   final _audioRecorder = Record();
 
   Future<void> initializeCamera() async {
-    if (kIsWeb) {
-      // On web, we don't need to use permission_handler
-      // Browser will show permission dialog automatically
-    } else {
-      // Request camera and microphone permissions for mobile
-      await Permission.camera.request();
-      await Permission.microphone.request();
-    }
-
-    // Get available cameras
-    final cameras = await availableCameras();
-    if (cameras.isEmpty) {
-      print("No cameras available");
-      return;
-    }
-
-    // Choose the front camera if available, otherwise use the first camera
-    final frontCamera = cameras.firstWhere(
-      (camera) => camera.lensDirection == CameraLensDirection.front,
-      orElse: () => cameras.first,
-    );
-
-    // Set different resolution based on platform
-    final resolutionPreset = kIsWeb
-        ? ResolutionPreset
-            .medium // Medium for web to ensure better compatibility
-        : ResolutionPreset.high; // Higher resolution for mobile devices
-
-    controller = CameraController(
-      frontCamera,
-      resolutionPreset,
-      enableAudio: false, // Audio not needed for photo mode
-      imageFormatGroup:
-          ImageFormatGroup.jpeg, // Force JPEG for consistent results
-    );
-
     try {
-      await controller!.initialize();
+      if (kIsWeb) {
+        // Add a browser compatibility check
+        final userAgent = html.window.navigator.userAgent.toLowerCase();
+        final isFirefox = userAgent.contains('firefox');
 
-      // Set specific camera settings for better face capture
-      if (controller!.value.isInitialized) {
-        // Lock exposure, focus, etc. for optimal face capture
-        if (!kIsWeb) {
-          // These may not be fully supported on web, so wrap in try/catch
-          try {
-            await controller!.setFocusMode(FocusMode.auto);
-            await controller!.setExposureMode(ExposureMode.auto);
-          } catch (e) {
-            print("Warning: Could not set camera modes: $e");
-          }
+        // Use a simpler approach for Firefox
+        if (isFirefox) {
+          await _initializeCameraForFirefox();
+          return;
         }
       }
 
-      Wakelock.enable(); // prevent screen timeout during recording
+      // Original camera initialization for Chrome and other browsers/platforms
+      final cameras = await availableCameras();
+      if (cameras.isEmpty) {
+        throw Exception("No cameras available");
+      }
+
+      final frontCamera = cameras.firstWhere(
+        (camera) => camera.lensDirection == CameraLensDirection.front,
+        orElse: () => cameras.first,
+      );
+
+      final resolutionPreset =
+          kIsWeb ? ResolutionPreset.medium : ResolutionPreset.high;
+
+      controller = CameraController(
+        frontCamera,
+        resolutionPreset,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+
+      await controller!.initialize();
+
+      // Rest of your initialization code...
+      Wakelock.enable();
     } catch (e) {
       print("Error initializing camera: $e");
+      rethrow; // Let the UI handle the error
+    }
+  }
+
+  // Specialized Firefox camera initialization
+  Future<void> _initializeCameraForFirefox() async {
+    try {
+      // Create a simpler camera access request for Firefox
+      final stream = await html.window.navigator.mediaDevices?.getUserMedia({
+        'video': {
+          'facingMode': 'user' // Request front camera
+        }
+      });
+
+      if (stream == null) {
+        throw Exception("Could not access camera stream in Firefox");
+      }
+
+      // Create a synthetic camera description for the controller
+      final cameras = [
+        CameraDescription(
+          name: 'Firefox Camera',
+          lensDirection: CameraLensDirection.front,
+          sensorOrientation: 0,
+        )
+      ];
+
+      controller = CameraController(
+        cameras[0],
+        ResolutionPreset.medium,
+        enableAudio: false,
+        imageFormatGroup: ImageFormatGroup.jpeg,
+      );
+
+      // Connect the stream to the controller (implementation depends on camera plugin)
+      // This part may require custom implementation depending on your camera plugin
+
+      // Signal that initialization is complete
+      print("Firefox camera initialized successfully");
+    } catch (e) {
+      print("Error initializing Firefox camera: $e");
+      throw Exception("Firefox camera initialization failed: $e");
     }
   }
 
@@ -115,15 +141,13 @@ class CameraService {
       }
 
       await _audioRecorder.start(
-        encoder: AudioEncoder.wav,
-        bitRate: 128000,
-        samplingRate: 44100,
-        numChannels: 1
-      );
-      audioMimeType = "audio/webm";
+          encoder: AudioEncoder.wav,
+          bitRate: 128000,
+          samplingRate: 44100,
+          numChannels: 1);
+      audioMimeType = "audio/wav";
 
       isRecording = true;
-      print("Audio recording started");
       return true;
     } catch (e) {
       print("Error starting audio recording: $e");

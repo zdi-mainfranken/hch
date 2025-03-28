@@ -1,23 +1,20 @@
 // lib/widgets/process_header_bar.dart
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
-import 'process_steps_indicator.dart';
+import '../widgets/process_steps_indicator.dart';
 
 class ProcessHeaderBar extends StatelessWidget {
   final int currentStep;
   final int totalSteps;
   final List<String> stepLabels;
-  final bool showBackButton;
-  final VoidCallback? onBackPressed;
+  final Function(int)? onStepTapped;
 
   const ProcessHeaderBar({
     Key? key,
     required this.currentStep,
     required this.totalSteps,
     required this.stepLabels,
-    this.showBackButton = true,
-    this.onBackPressed,
+    this.onStepTapped,
   }) : super(key: key);
 
   @override
@@ -29,33 +26,51 @@ class ProcessHeaderBar extends StatelessWidget {
         child: Container(
           height: 56, // Standard app bar height
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Back button with white background and blue arrow
-              if (showBackButton)
-                Container(
-                  color: Colors.white, // Changed to white background
-                  width: 56, // Square button area
-                  height: 56,
-                  child: Center(
-                    child: IconButton(
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: AppColors.primary, // Changed to primary color
-                      ),
-                      onPressed:
-                          onBackPressed ?? () => Navigator.of(context).pop(),
+              // Logo with click functionality and cursor indicator
+              MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: GestureDetector(
+                  onTap: () {
+                    // Navigate to start screen, replacing all routes in the stack
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/', (route) => false);
+                  },
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Image.asset(
+                      'assets/images/herzradar_logov2.png',
+                      height: 36,
+                      fit: BoxFit.contain,
                     ),
                   ),
                 ),
+              ),
 
-              // Process Steps Indicator (fills remaining space)
+              // Process steps indicator takes remaining space
               Expanded(
                 child: ProcessStepsIndicator(
                   currentStep: currentStep,
                   totalSteps: totalSteps,
                   stepLabels: stepLabels,
+                  onStepTapped: onStepTapped ??
+                      (int stepIndex) {
+                        // Default navigation logic
+                        if (stepIndex < currentStep) {
+                          switch (stepIndex) {
+                            case 0: // Select Prompt
+                              Navigator.popUntil(
+                                  context, ModalRoute.withName('/prompt'));
+                              break;
+                            case 1: // Record
+                              if (ModalRoute.of(context)?.settings.name ==
+                                  '/review') {
+                                Navigator.pop(context);
+                              }
+                              break;
+                          }
+                        }
+                      },
                 ),
               ),
             ],

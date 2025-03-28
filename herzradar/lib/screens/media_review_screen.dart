@@ -73,14 +73,11 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
     _initializeFromArguments();
   }
 
-  // All other methods remain the same as your original implementation
-  // I'm not repeating them here for brevity
-
   Future<void> _initializeFromArguments() async {
     final args = ModalRoute.of(context)!.settings.arguments;
 
     if (args == null) {
-      _setError('No media data provided');
+      _setError('Keine Mediendaten vorhanden');
       return;
     }
 
@@ -89,12 +86,12 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
         cameraService = args;
 
         if (cameraService?.capturedImage == null) {
-          _setError('No image available');
+          _setError('Kein Bild verfügbar');
           return;
         }
 
         if (cameraService?.recordedAudio == null) {
-          _setError('No audio recording available');
+          _setError('Keine Audioaufnahme verfügbar');
           return;
         }
 
@@ -104,10 +101,10 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
           isLoading = false;
         });
       } else {
-        _setError('Unsupported argument type: ${args.runtimeType}');
+        _setError('Nicht unterstützter Argumenttyp: ${args.runtimeType}');
       }
     } catch (e) {
-      _setError('Error initializing review: $e');
+      _setError('Fehler bei der Initialisierung der Überprüfung: $e');
     }
   }
 
@@ -137,7 +134,7 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
       }
     } catch (e) {
       print("Error initializing audio player: $e");
-      _setError('Failed to initialize audio player: $e');
+      _setError('Audioplayer konnte nicht initialisiert werden: $e');
     }
   }
 
@@ -172,14 +169,14 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
       cameraService!.saveMediaToDownloads();
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Image and audio saved to downloads'),
+          content: Text('Bild und Audio gespeichert'),
           duration: Duration(seconds: 3),
         ),
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Save feature not implemented for this platform'),
+          content: Text('Speicherfunktion für diese Plattform nicht verfügbar'),
         ),
       );
     }
@@ -199,12 +196,18 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
           // Combined header component
           ProcessHeaderBar(
             currentStep: 2,
-            // Now third step (was 3)
             totalSteps: 3,
-            // Now 3 steps total (was 4)
-            stepLabels: ['Select Prompt', 'Record', 'Review'],
-            // Removed 'Welcome'
-            showBackButton: true,
+            stepLabels: ['Auswahl', 'Aufnahme', 'Überprüfen'],
+            onStepTapped: (index) {
+              if (index < 2) {
+                // Navigate based on tapped step
+                if (index == 0) {
+                  Navigator.popUntil(context, ModalRoute.withName('/prompt'));
+                } else if (index == 1) {
+                  Navigator.pop(context);
+                }
+              }
+            },
           ),
 
           Expanded(
@@ -226,7 +229,7 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
         children: [
           CircularProgressIndicator(),
           SizedBox(height: 16),
-          Text('Loading media...'),
+          Text('Medien werden geladen...'),
         ],
       ),
     );
@@ -242,7 +245,7 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
             Icon(Icons.error_outline, size: 48, color: AppColors.error),
             SizedBox(height: 16),
             Text(
-              'Error',
+              'Fehler',
               style: AppTextStyles.largeText.copyWith(color: AppColors.error),
             ),
             SizedBox(height: 8),
@@ -253,7 +256,7 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
             ),
             SizedBox(height: 24),
             LargeButton(
-              text: 'Go Back',
+              text: 'Zurück',
               width: 150.0,
               onPressed: () {
                 Navigator.popUntil(context, ModalRoute.withName('/prompt'));
@@ -287,7 +290,7 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  'Review Recording',
+                  'Aufnahme überprüfen',
                   style: AppTextStyles.largeText,
                 ),
               ),
@@ -319,10 +322,9 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
                           File(capturedImage.path),
                           fit: BoxFit.contain,
                         )
-                  : Center(child: Text('No image available')),
+                  : Center(child: Text('Kein Bild verfügbar')),
             ),
 
-            // Rest of the content remains the same
             // Audio section and action buttons
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
@@ -403,39 +405,80 @@ class _MediaReviewScreenState extends State<MediaReviewScreen> {
             // Action buttons
             Padding(
               padding: const EdgeInsets.all(Dimensions.padding),
-              child: Wrap(
-                spacing: 12.0,
-                runSpacing: 12.0,
-                alignment: WrapAlignment.center,
-                children: [
-                  LargeButton(
-                    text: 'Save',
-                    width: 150.0,
-                    onPressed: _saveMedia,
-                  ),
-                  LargeButton(
-                    text: 'Re-record',
-                    width: 150.0,
-                    onPressed: () {
-                      Navigator.popUntil(
-                          context, ModalRoute.withName('/prompt'));
-                    },
-                  ),
-                  LargeButton(
-                    text: 'Submit',
-                    width: 150.0,
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text('Recording submitted successfully!'),
-                        ),
-                      );
-                      Future.delayed(Duration(seconds: 1), () {
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
-                      });
-                    },
-                  ),
-                ],
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // Calculate button width based on available space
+                  // Allow 16.0 pixels spacing between buttons
+                  final buttonSpacing = 16.0;
+                  final availableWidth = constraints.maxWidth;
+                  final buttonCount = 3;
+
+                  // Check if we have enough space for side-by-side layout
+                  // Each button needs at least 120px width to be readable
+                  final minButtonWidth = 120.0;
+                  final isHorizontalLayout = availableWidth >=
+                      (minButtonWidth * buttonCount +
+                          buttonSpacing * (buttonCount - 1));
+
+                  // Button width calculation
+                  final buttonWidth = isHorizontalLayout
+                      ? (availableWidth - (buttonSpacing * (buttonCount - 1))) /
+                          buttonCount
+                      : double.infinity;
+
+                  final buttons = [
+                    LargeButton(
+                      text: 'Speichern',
+                      icon: Icons.save,
+                      width: buttonWidth,
+                      onPressed: _saveMedia,
+                    ),
+                    LargeButton(
+                      text: 'Wiederholen',
+                      // Changed from "Neu starten" to be more concise
+                      icon: Icons.replay,
+                      buttonColor: Colors.orange,
+                      width: buttonWidth,
+                      onPressed: () {
+                        Navigator.popUntil(
+                            context, ModalRoute.withName('/prompt'));
+                      },
+                    ),
+                    LargeButton(
+                      text: 'Senden',
+                      icon: Icons.check_circle,
+                      buttonColor: Colors.green,
+                      width: buttonWidth,
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                              content: Text('Aufnahme erfolgreich gesendet!')),
+                        );
+                        Future.delayed(Duration(seconds: 1), () {
+                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                        });
+                      },
+                    ),
+                  ];
+
+                  // Return either a Row or Column based on available space
+                  if (isHorizontalLayout) {
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: buttons,
+                    );
+                  } else {
+                    return Column(
+                      children: [
+                        buttons[0],
+                        SizedBox(height: buttonSpacing),
+                        buttons[1],
+                        SizedBox(height: buttonSpacing),
+                        buttons[2],
+                      ],
+                    );
+                  }
+                },
               ),
             ),
           ],

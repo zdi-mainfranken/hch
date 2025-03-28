@@ -60,7 +60,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      // No process steps indicator on welcome screen
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(Dimensions.padding),
@@ -69,34 +68,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               // Adjust top spacing based on screen size
               SizedBox(height: smallScreen ? 40 : 60),
 
-              // Logo with responsive sizing
+              // Combined logo with text
               Container(
-                width: smallScreen ? 80 : 120,
-                height: smallScreen ? 80 : 120,
+                width: smallScreen ? 240 : 300,
+                // Wider to accommodate text in logo
                 child: Image.asset(
-                  'assets/images/herzradar_logov2.png',
+                  'assets/images/herzradar_logov2_with_text.png',
+                  // You'll replace this path
                   fit: BoxFit.contain,
                 ),
               ),
 
-              SizedBox(height: smallScreen ? 16 : 24),
-
-              // App title
-              Text(
-                'HerzRadar',
-                style: TextStyle(
-                  color: AppColors.primary,
-                  fontSize: smallScreen ? 28 : 32,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
-              ),
-
-              SizedBox(height: 16),
+              SizedBox(height: 24),
 
               // App description
               Text(
-                'Monitor your heart health through voice analysis',
+                'Überwachen Sie Ihre Herzgesundheit durch Stimmanalyse',
                 style: TextStyle(
                   color: Colors.black87,
                   fontSize: smallScreen ? 16 : 18,
@@ -105,14 +92,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               ),
 
               // Flexible spacing that adapts to screen size
-              SizedBox(height: smallScreen ? 20 : 40),
+              SizedBox(height: smallScreen ? 30 : 50),
 
               // Permission icons in a row
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   _buildPermissionIcon(
-                    'Camera',
+                    'Kamera',
                     Icons.camera_alt,
                     permissions['camera'] ?? false,
                     () => _requestPermission('camera'),
@@ -120,7 +107,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   ),
                   SizedBox(width: smallScreen ? 20 : 40),
                   _buildPermissionIcon(
-                    'Microphone',
+                    'Mikrofon',
                     Icons.mic,
                     permissions['microphone'] ?? false,
                     () => _requestPermission('microphone'),
@@ -134,8 +121,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               // Permission status message
               Text(
                 allPermissionsGranted
-                    ? 'All permissions granted'
-                    : 'Tap the icons above to grant permissions',
+                    ? 'Alle Berechtigungen erteilt'
+                    : 'Tippen Sie auf die Symbole, um Berechtigungen zu erteilen',
                 style: TextStyle(
                   color: Colors.black54,
                   fontSize: 14,
@@ -147,7 +134,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
               // Get started button
               LargeButton(
-                text: 'Get Started',
+                text: 'Starten',
                 onPressed: allPermissionsGranted
                     ? () => Navigator.pushNamed(context, '/prompt')
                     : null,
@@ -223,13 +210,15 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             fontSize: smallScreen ? 13 : 14,
           ),
         ),
-        Text(
-          isGranted ? 'Granted' : 'Tap to enable',
-          style: TextStyle(
-            color: Colors.black54,
-            fontSize: smallScreen ? 10 : 12,
+        // Only show instructional text if permission is not granted
+        if (!isGranted)
+          Text(
+            'Zum Aktivieren tippen',
+            style: TextStyle(
+              color: Colors.black54,
+              fontSize: smallScreen ? 10 : 12,
+            ),
           ),
-        ),
       ],
     );
   }

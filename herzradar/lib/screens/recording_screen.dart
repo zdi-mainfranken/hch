@@ -34,7 +34,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   // Services
   CameraService cameraService = CameraService();
-  String statusMessage = 'Initializing camera...';
+  String statusMessage = 'Kamera wird gestartet...';
   XFile? capturedImage;
 
   @override
@@ -43,25 +43,22 @@ class _RecordingScreenState extends State<RecordingScreen> {
     _initCamera();
   }
 
-  // Camera initialization and other methods remain unchanged...
-  // [All other methods remain the same as your original implementation]
-
   Future<void> _initCamera() async {
     setState(() {
-      statusMessage = 'Initializing camera...';
+      statusMessage = 'Kamera wird gestartet...';
     });
 
     try {
       await cameraService.initializeCamera();
       setState(() {
         isCameraReady = true;
-        statusMessage = 'Position your face in the outline';
+        statusMessage = 'Positionieren Sie Ihr Gesicht im Rahmen';
       });
 
       _simulateFaceDetection();
     } catch (e) {
       setState(() {
-        statusMessage = 'Failed to initialize camera: $e';
+        statusMessage = 'Kamera konnte nicht initialisiert werden: $e';
       });
       print("Error initializing camera: $e");
     }
@@ -73,7 +70,8 @@ class _RecordingScreenState extends State<RecordingScreen> {
       if (mounted && isPhotoMode && !isPhotoTaken) {
         setState(() {
           isFaceAligned = true;
-          statusMessage = 'Face aligned! You can now start recording.';
+          statusMessage =
+              'Gesicht erkannt! Sie können nun mit der Aufnahme beginnen.';
         });
       }
     });
@@ -81,13 +79,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
 
   Future<void> _capturePhotoAndPrepareRecording() async {
     if (!isFaceAligned) {
-      _showErrorSnackBar('Please position your face properly first');
+      _showErrorSnackBar('Bitte positionieren Sie Ihr Gesicht richtig');
       return;
     }
 
     setState(() {
       isProcessing = true;
-      statusMessage = 'Taking photo...';
+      statusMessage = 'Foto wird aufgenommen...';
     });
 
     try {
@@ -98,29 +96,29 @@ class _RecordingScreenState extends State<RecordingScreen> {
           isPhotoTaken = true;
           isPhotoMode = false;
           isProcessing = false;
-          statusMessage = 'Please read the text aloud.';
+          statusMessage = 'Bitte lesen Sie den Text laut vor.';
         });
       } else {
-        _showErrorSnackBar('Failed to take photo');
+        _showErrorSnackBar('Foto konnte nicht aufgenommen werden');
         setState(() {
           isProcessing = false;
-          statusMessage = 'Failed to take photo. Please try again.';
+          statusMessage =
+              'Foto konnte nicht aufgenommen werden. Bitte versuchen Sie es erneut.';
         });
       }
     } catch (e) {
-      _showErrorSnackBar('Error taking photo: $e');
+      _showErrorSnackBar('Fehler bei der Fotoaufnahme: $e');
       setState(() {
         isProcessing = false;
-        statusMessage = 'Error: $e';
+        statusMessage = 'Fehler: $e';
       });
     }
   }
 
   Future<void> _startAudioRecording() async {
-    // Same implementation as before
     setState(() {
       isProcessing = true;
-      statusMessage = 'Starting audio recording...';
+      statusMessage = 'Audioaufnahme wird gestartet...';
     });
 
     try {
@@ -130,7 +128,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
           isAudioRecording = true;
           isProcessing = false;
           audioRecordingDuration = 0;
-          statusMessage = 'Recording audio... Please read the text.';
+          statusMessage = 'Aufnahme läuft... Bitte lesen Sie den Text vor.';
         });
 
         recordingTimer = Timer.periodic(Duration(seconds: 1), (timer) {
@@ -145,28 +143,28 @@ class _RecordingScreenState extends State<RecordingScreen> {
           }
         });
       } else {
-        _showErrorSnackBar('Failed to start audio recording');
+        _showErrorSnackBar('Audioaufnahme konnte nicht gestartet werden');
         setState(() {
           isProcessing = false;
-          statusMessage = 'Failed to start recording. Please try again.';
+          statusMessage =
+              'Aufnahme konnte nicht gestartet werden. Bitte versuchen Sie es erneut.';
         });
       }
     } catch (e) {
-      _showErrorSnackBar('Error starting recording: $e');
+      _showErrorSnackBar('Fehler beim Starten der Aufnahme: $e');
       setState(() {
         isProcessing = false;
-        statusMessage = 'Error: $e';
+        statusMessage = 'Fehler: $e';
       });
     }
   }
 
   Future<void> _stopAudioRecording() async {
-    // Same implementation as before
     recordingTimer?.cancel();
 
     setState(() {
       isProcessing = true;
-      statusMessage = 'Processing recording...';
+      statusMessage = 'Aufnahme wird verarbeitet...';
     });
 
     try {
@@ -175,20 +173,20 @@ class _RecordingScreenState extends State<RecordingScreen> {
       setState(() {
         isAudioRecording = false;
         isProcessing = false;
-        statusMessage = 'Recording completed';
+        statusMessage = 'Aufnahme abgeschlossen';
       });
 
       if (audioFile != null) {
         Navigator.pushNamed(context, '/review', arguments: cameraService);
       } else {
-        _showErrorSnackBar('Failed to process audio recording');
+        _showErrorSnackBar('Audioaufnahme konnte nicht verarbeitet werden');
       }
     } catch (e) {
-      _showErrorSnackBar('Error stopping recording: $e');
+      _showErrorSnackBar('Fehler beim Stoppen der Aufnahme: $e');
       setState(() {
         isAudioRecording = false;
         isProcessing = false;
-        statusMessage = 'Error: $e';
+        statusMessage = 'Fehler: $e';
       });
     }
   }
@@ -211,20 +209,25 @@ class _RecordingScreenState extends State<RecordingScreen> {
   Widget build(BuildContext context) {
     final args =
         ModalRoute.of(context)!.settings.arguments as Map<String, String>?;
-    prompt = args ?? {'title': 'Prompt', 'text': 'Default prompt'};
+    prompt = args ?? {'title': 'Übung', 'text': 'Standard-Übung'};
 
     return Scaffold(
       body: Column(
         children: [
-          // Process header bar with updated steps
+          // Updated header with navigation logic
           ProcessHeaderBar(
             currentStep: 1,
-            // Now second step (was 2)
             totalSteps: 3,
-            // Now 3 steps total (was 4)
-            stepLabels: ['Select Prompt', 'Record', 'Review'],
-            // Removed 'Welcome'
-            showBackButton: true,
+            stepLabels: ['Auswahl', 'Aufnahme', 'Überprüfen'],
+            onStepTapped: (index) {
+              if (index == 0) {
+                // Handle potential state cleanup before navigation
+                if (isAudioRecording) {
+                  _stopAudioRecording();
+                }
+                Navigator.pop(context);
+              }
+            },
           ),
 
           Expanded(
@@ -246,7 +249,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
       return Container(
         width: double.infinity,
         height: double.infinity,
-        color: Colors.black, // Changed to black for better visual integration
+        color: Colors.black,
         child: Stack(
           children: [
             // Camera preview in maximized container
@@ -348,7 +351,7 @@ class _RecordingScreenState extends State<RecordingScreen> {
                             Icon(Icons.mic, color: AppColors.primary, size: 16),
                             SizedBox(width: 4),
                             Text(
-                              'Recording',
+                              'Aufnahme',
                               style: TextStyle(
                                 color: AppColors.primary,
                                 fontWeight: FontWeight.bold,
@@ -378,13 +381,13 @@ class _RecordingScreenState extends State<RecordingScreen> {
         children: [
           if (isPhotoMode && !isProcessing)
             LargeButton(
-              text: 'Start Recording',
+              text: 'Aufnahme starten',
               onPressed:
                   isFaceAligned ? _capturePhotoAndPrepareRecording : null,
             ),
           if (!isPhotoMode && !isProcessing)
             LargeButton(
-              text: isAudioRecording ? 'Stop Recording' : 'Start Recording',
+              text: isAudioRecording ? 'Aufnahme beenden' : 'Aufnahme starten',
               onPressed:
                   isAudioRecording ? _stopAudioRecording : _startAudioRecording,
             ),

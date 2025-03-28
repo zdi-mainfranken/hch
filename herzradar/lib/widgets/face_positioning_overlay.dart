@@ -64,7 +64,7 @@ class FacePositioningOverlay extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Position your face here',
+                        'Positionieren Sie Ihr Gesicht hier',
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

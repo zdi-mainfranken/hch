@@ -13,10 +13,10 @@ class AppRouteObserver {
   };
 
   static const List<String> stepLabels = [
-    'Welcome',
-    'Select Prompt',
-    'Record',
-    'Review'
+    'Willkommen',
+    'Auswahl',
+    'Aufnahme',
+    'Überprüfen'
   ];
 
   static int getCurrentStep(BuildContext context) {

@@ -1,1 +1,7 @@
 build/
+.idea
+.firebase
+.dart_tool
+.flutter-plugins
+.firebaserc
+.flutter-plugins-dependencies

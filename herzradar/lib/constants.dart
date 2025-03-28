@@ -35,6 +35,6 @@ class RecordingPrompts {
       "zog der Wanderer seinen Mantel aus. Da musste der Nordwind zugeben, dass die Sonne von ihnen beiden der Stärkere war.";
 
   static const sustainedVowel =
-      "Please hold the sound 'ah' for as long as possible.";
-  static const freeSpeech = "Please talk about how you feel today.";
+      "Bitte halten Sie den Laut 'Ah' so lange wie möglich.";
+  static const freeSpeech = "Bitte erzählen Sie, wie Sie sich heute fühlen.";
 }

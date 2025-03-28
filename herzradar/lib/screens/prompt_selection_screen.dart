@@ -10,8 +10,8 @@ class PromptSelectionScreen extends StatelessWidget {
       'title': RecordingPrompts.textPassageTitle,
       'text': RecordingPrompts.textPassage
     },
-    {'title': 'Sustained Vowel', 'text': RecordingPrompts.sustainedVowel},
-    {'title': 'Free Speech', 'text': RecordingPrompts.freeSpeech},
+    {'title': 'Gehaltener Vokal', 'text': RecordingPrompts.sustainedVowel},
+    {'title': 'Freies Sprechen', 'text': RecordingPrompts.freeSpeech},
   ];
 
   @override
@@ -19,17 +19,12 @@ class PromptSelectionScreen extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          // Combined header component with updated steps
           ProcessHeaderBar(
             currentStep: 0,
-            // Now first step (was 1)
             totalSteps: 3,
-            // Now 3 steps total (was 4)
-            stepLabels: ['Select Prompt', 'Record', 'Review'],
-            // Removed 'Welcome'
-            showBackButton: true,
+            stepLabels: ['Auswahl', 'Aufnahme', 'Überprüfen'],
+            // No onStepTapped needed for first screen
           ),
-
           Expanded(
             child: SafeArea(
               top: false,
@@ -37,9 +32,9 @@ class PromptSelectionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+                    padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                     child: Text(
-                      'Select a Prompt',
+                      'Sprechübung auswählen',
                       style: AppTextStyles.largeText,
                     ),
                   ),
@@ -55,7 +50,7 @@ class PromptSelectionScreen extends StatelessWidget {
                             title: Text(prompt['title']!,
                                 style: AppTextStyles.largeText),
                             subtitle: index == 0
-                                ? Text("Read a standard text passage aloud",
+                                ? Text("Lesen Sie den Standardtext vor",
                                     style: AppTextStyles.smallText)
                                 : Text(
                                     prompt['text']!.length > 70

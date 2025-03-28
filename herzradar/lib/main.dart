@@ -21,13 +21,6 @@ void main() async {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   }
 
-  // Initialize cameras early
-  try {
-    await availableCameras();
-  } catch (e) {
-    print('Failed to initialize cameras: $e');
-  }
-
   runApp(HeartTrackApp());
 }
 
