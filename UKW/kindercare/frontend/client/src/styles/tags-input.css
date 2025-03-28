@@ -1,0 +1,115 @@
+/* Tags Input Styling */
+.therapeutic-tags-wrapper {
+  width: 100%;
+  border-radius: 0.375rem;
+  background-color: white;
+}
+
+.therapeutic-tags-container {
+  width: 100%;
+  min-height: 45px;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.therapeutic-tags-container:focus-within {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+}
+
+.therapeutic-selected-tags {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.therapeutic-tag {
+  display: inline-flex;
+  align-items: center;
+  background-color: rgba(var(--primary-rgb), 0.1);
+  color: hsl(var(--primary));
+  border-radius: 9999px;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  transition: all 0.2s;
+}
+
+.therapeutic-tag:hover {
+  background-color: rgba(var(--primary-rgb), 0.2);
+}
+
+.therapeutic-tag-remove {
+  cursor: pointer;
+  margin-left: 0.25rem;
+  color: hsl(var(--primary));
+  background: none;
+  border: none;
+  font-size: 0.875rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.therapeutic-tag-remove:hover {
+  background-color: rgba(var(--primary-rgb), 0.3);
+}
+
+.therapeutic-tag-input {
+  flex: 1;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.therapeutic-tag-input-field {
+  border: none;
+  width: 100%;
+  font-size: 0.875rem;
+  outline: none;
+  padding: 0.25rem 0;
+}
+
+.therapeutic-tag-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: white;
+  margin-top: 2px;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.375rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  z-index: 10;
+}
+
+.therapeutic-tag-suggestions li {
+  padding: 0.5rem;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.therapeutic-tag-active-suggestion {
+  background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+/* For small screens */
+@media (max-width: 640px) {
+  .therapeutic-tag-input-field {
+    font-size: 16px; /* Prevent zoom on mobile */
+  }
+}
