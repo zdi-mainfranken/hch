@@ -33,7 +33,8 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.http.routers.limesurvey-router.entrypoints: "web"
-      traefik.http.routers.limesurvey-router.rule: "PathPrefix(`/index.php`)"
+      traefik.http.routers.limesurvey-router.rule: "PathPrefix(`/index.php`) || PathPrefix(`/tmp`) || PathPrefix(`/limesurvey`)"
+      traefik.http.routers.limesurvey-router.priority: 10
       traefik.http.services.limesurvey-service.loadbalancer.server.port: "8080"
     environment:
       - "DB_TYPE=${DB_TYPE:-pgsql}"
@@ -70,8 +71,12 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.http.routers.frontend-router.entrypoints: "web"
-      traefik.http.routers.frontend-router.rule: "PathPrefix(`/`) && !PathPrefix(`/index.php`)"
-      traefik.http.services.frontend-service.loadbalancer.server.port: "3030"
+      traefik.http.routers.frontend-router.rule: "PathPrefix(`/`)"
+      traefik.http.routers.frontend-router.priority: 1
+      traefik.http.services.frontend-service.loadbalancer.server.port: "5001"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
     restart: unless-stopped
 
 networks:
