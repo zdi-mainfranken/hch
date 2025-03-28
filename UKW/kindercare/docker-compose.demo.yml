@@ -1,0 +1,124 @@
+services:
+  # Traefik reverse proxy
+  traefik:
+    image: traefik:v3.3
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--certificatesresolvers.myresolver.acme.email=mmatiaschek@zerohunger.ai"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+    ports:
+      - "${TRAEFIK_HTTP_PORT:-80}:80"
+      - "${TRAEFIK_HTTPS_PORT:-443}:443"
+      - "${TRAEFIK_DASHBOARD_PORT:-8080}:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "letsencrypt-data:/letsencrypt"
+    networks:
+      - kindercare-net
+    restart: unless-stopped
+
+  # LimeSurvey backend
+  limesurvey:
+    build:
+      context: backend/6.0/apache/
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/surveys:/var/www/html/upload/surveys
+    networks:
+      - kindercare-net
+    depends_on:
+      - lime-db
+    labels:
+      traefik.enable: 'true'
+      # HTTP router for demo domain
+      traefik.http.routers.limesurvey-router.entrypoints: "web"
+      traefik.http.routers.limesurvey-router.rule: "Host(`demo.kindercare.zerohunger.ai`) && (PathPrefix(`/index.php`) || PathPrefix(`/tmp`) || PathPrefix(`/limesurvey`) || PathPrefix(`/api`) || PathPrefix(`/assets`) || PathPrefix(`/upload`) || PathPrefix(`/themes`) || PathPrefix(`/styles`) || PathPrefix(`/plugins`) || PathPrefix(`/images`) || PathPrefix(`/admin`))"
+      traefik.http.routers.limesurvey-router.priority: 10
+      # HTTPS router for demo domain
+      traefik.http.routers.limesurvey-router-demo.entrypoints: "websecure"
+      traefik.http.routers.limesurvey-router-demo.rule: "Host(`demo.kindercare.zerohunger.ai`) && (PathPrefix(`/index.php`) || PathPrefix(`/tmp`) || PathPrefix(`/limesurvey`) || PathPrefix(`/api`) || PathPrefix(`/assets`) || PathPrefix(`/upload`) || PathPrefix(`/themes`) || PathPrefix(`/styles`) || PathPrefix(`/plugins`) || PathPrefix(`/images`) || PathPrefix(`/admin`))"
+      traefik.http.routers.limesurvey-router-demo.priority: 10
+      traefik.http.routers.limesurvey-router-demo.tls: "true"
+      traefik.http.routers.limesurvey-router-demo.tls.certresolver: "myresolver"
+      # Service configuration
+      traefik.http.services.limesurvey-service.loadbalancer.server.port: "8080"
+    environment:
+      - "DB_TYPE=pgsql"
+      - "DB_PORT=5432"
+      - "DB_HOST=lime-db"
+      - "DB_USER=limesurvey"
+      - "DB_PASSWORD=test"
+      - "DB_NAME=limesurvey"
+      - "ADMIN_PASSWORD=test"
+      - "PUBLIC_URL=https://demo.kindercare.zerohunger.ai"
+      - "BASE_URL=https://demo.kindercare.zerohunger.ai"
+    restart: unless-stopped
+
+  # PostgreSQL database
+  lime-db:
+    image: postgres:17
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - kindercare-net
+    environment:
+      - "POSTGRES_DB=limesurvey"
+      - "POSTGRES_USER=limesurvey"
+      - "POSTGRES_PASSWORD=test"
+    restart: unless-stopped
+
+  # Frontend application
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile.frontend
+    networks:
+      - kindercare-net
+    depends_on:
+      - limesurvey
+    environment:
+      - "PORT=5001"
+      - "NODE_ENV=development"
+      - "VITE_LIMESURVEY_URL=https://demo.kindercare.zerohunger.ai"
+    labels:
+      traefik.enable: 'true'
+      # HTTP router for frontend UI
+      traefik.http.routers.frontend-router.entrypoints: "web"
+      traefik.http.routers.frontend-router.rule: "Host(`demo.kindercare.zerohunger.ai`) && PathPrefix(`/`) && !PathPrefix(`/index.php`) && !PathPrefix(`/tmp`) && !PathPrefix(`/limesurvey`) && !PathPrefix(`/api`) && !PathPrefix(`/assets`) && !PathPrefix(`/upload`) && !PathPrefix(`/themes`) && !PathPrefix(`/styles`) && !PathPrefix(`/plugins`) && !PathPrefix(`/images`) && !PathPrefix(`/admin`)"
+      traefik.http.routers.frontend-router.priority: 1
+      # HTTPS router for frontend UI
+      traefik.http.routers.frontend-router-demo.entrypoints: "websecure"
+      traefik.http.routers.frontend-router-demo.rule: "Host(`demo.kindercare.zerohunger.ai`) && PathPrefix(`/`) && !PathPrefix(`/index.php`) && !PathPrefix(`/tmp`) && !PathPrefix(`/limesurvey`) && !PathPrefix(`/api`) && !PathPrefix(`/assets`) && !PathPrefix(`/upload`) && !PathPrefix(`/themes`) && !PathPrefix(`/styles`) && !PathPrefix(`/plugins`) && !PathPrefix(`/images`) && !PathPrefix(`/admin`)"
+      traefik.http.routers.frontend-router-demo.priority: 1
+      traefik.http.routers.frontend-router-demo.tls: "true"
+      traefik.http.routers.frontend-router-demo.tls.certresolver: "myresolver"
+      # API router for HTTP
+      traefik.http.routers.api-router.entrypoints: "web"
+      traefik.http.routers.api-router.rule: "Host(`demo.kindercare.zerohunger.ai`) && PathPrefix(`/api`)"
+      traefik.http.routers.api-router.priority: 20
+      # API router for HTTPS
+      traefik.http.routers.api-router-demo.entrypoints: "websecure"
+      traefik.http.routers.api-router-demo.rule: "Host(`demo.kindercare.zerohunger.ai`) && PathPrefix(`/api`)"
+      traefik.http.routers.api-router-demo.priority: 20
+      traefik.http.routers.api-router-demo.tls: "true"
+      traefik.http.routers.api-router-demo.tls.certresolver: "myresolver"
+      # Service configuration
+      traefik.http.services.frontend-service.loadbalancer.server.port: "5001"
+    restart: unless-stopped
+
+networks:
+  kindercare-net:
+    driver: bridge
+
+volumes:
+  letsencrypt-data: {}
+  postgres-data: {}
