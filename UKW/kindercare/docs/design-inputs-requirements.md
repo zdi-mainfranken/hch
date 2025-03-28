@@ -50,7 +50,7 @@ Rücklauf von Fragebögen ist schlecht -> Aktuelle alternative: Patienten bekomm
 (Doctors, Caregivers, psychologists, physiotherapists, social workers. Primary users for the initial prototype are intensive care physicians.)
 
 - As a healthcare provider, I want to quickly and easily onboard leaving patients to standardize PROMs in line with professional guidelines for aftercare.
-  - Pseudonymous ID and QR-code-based patient pseudonym assignment and login.
+  - Pseudonymous Passphrase and QR-code-based patient pseudonym assignment and login.
   - Verschiedene Profile für Nachsorgen: Digital collection of standardized PROM questionnaires (domains: cognition, emotion, general health, family functioning).
 - As an intensive care physician, I want structured follow-up data to evaluate initial treatments and ongoing quality assurance.
   - Mediziner wollen dass Patienten möglichst zuverlässigen Nachsorge-intervallen vergleichbare Daten in guter Qualität liefern.
@@ -87,12 +87,12 @@ Forschungsgruppen tauschen sich auf Konferenzen und per Sharepoints/OneDrives au
 - Doctor logs into the system.
 - Doctor enters patient core data (birthdate, pre-existing conditions, diagnoses, therapeutic measures, discharge status).
 - Doctor receives automated suggestions for relevant questionnaires and timelines.
-- Doctor finalizes the follow-up plan and generates a QR code for patient/parent login.
+- Doctor finalizes the follow-up plan and produces a PDF document for the patient with URL and Passphrase and a QR code for patient/parent login.
 
 ### 2. Patient Receiving Reminder and Filling Out Surveys
 
 - Patient/parent receives notification (email/SMS) about a due survey.
-- Patient/parent logs in using provided QR code.
+- Patient/parent logs in using provided QR code or URL and Passphrase.
 - Patient/parent completes questionnaires and submits data.
 - Patient/parent receives immediate feedback or acknowledgment of submission.
 
@@ -125,7 +125,7 @@ Dalia 15J Schwere Entzündung des Auges. Konnte danach nicht mehr sehen. Ein Aug
 
 - **Technical Constraints:**
   - Interoperable formats (PDF, CSV)
-  - QR-code-based pseudonym management
+  - Pass phrase and QR-code based pseudonym management
   - Multicenter management complexity
 
 - **Regulatory Constraints:** GDPR-compliant data handling and pseudonymization
