@@ -15,7 +15,7 @@ const PatientAccessInfo = ({ pseudonymousId, passphrase }: PatientAccessInfoProp
   const [patientEmail, setPatientEmail] = useState('');
 
   // QR code data (would contain a URL to the patient login page with passphrase)
-  const qrCodeData = `${window.location.origin}/patient-login?id=${pseudonymousId}`;
+  const qrCodeData = `${window.location.origin}/patient-login?passphrase=${passphrase}`;
 
   const handleCopyPassphrase = () => {
     navigator.clipboard.writeText(passphrase);

@@ -22,10 +22,10 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
   // Effect hook to handle URL parameter extraction and auto-filling
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
+    const urlPassphrase = params.get('passphrase');
     
-    if (id) {
-      setPassphrase(id.trim());  // Trim the passphrase immediately
+    if (urlPassphrase) {
+      setPassphrase(urlPassphrase.trim());  // Trim the passphrase immediately
     }
   }, []);
 
