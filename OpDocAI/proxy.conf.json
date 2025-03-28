@@ -1,0 +1,12 @@
+{
+  "/api": {
+    "target": "http://localhost:8080",
+    "pathRewrite": {"^/api" : ""},
+    "secure": false
+  },
+  "/management": {
+    "target": "http://localhost:8080",
+    "pathRewrite": {"^/api" : ""},
+    "secure": false
+  }
+}

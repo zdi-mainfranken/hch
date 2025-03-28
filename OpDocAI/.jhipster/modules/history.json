@@ -1,0 +1,219 @@
+{
+  "actions" : [ {
+    "module" : "init",
+    "date" : "2025-03-27T12:19:35.794048240Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "application-service-hexagonal-architecture-documentation",
+    "date" : "2025-03-27T12:19:35.841762108Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "maven-java",
+    "date" : "2025-03-27T12:19:35.949445805Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "prettier",
+    "date" : "2025-03-27T12:19:36.044182044Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "jacoco",
+    "date" : "2025-03-27T12:19:36.130446307Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "java-base",
+    "date" : "2025-03-27T12:19:36.274992542Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "maven-wrapper",
+    "date" : "2025-03-27T12:19:36.437891113Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "angular-core",
+    "date" : "2025-03-27T12:19:36.708166811Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "dockerfile-maven",
+    "date" : "2025-03-27T12:19:36.917152257Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "github-actions-maven",
+    "date" : "2025-03-27T12:19:37.059877523Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "spring-boot",
+    "date" : "2025-03-27T12:19:37.333428795Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "datasource-postgresql",
+    "date" : "2025-03-27T12:19:37.563519283Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "logs-spy",
+    "date" : "2025-03-27T12:19:37.767614246Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "spring-boot-mvc-empty",
+    "date" : "2025-03-27T12:19:37.943768003Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "jpa-postgresql",
+    "date" : "2025-03-27T12:19:38.263599085Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "liquibase",
+    "date" : "2025-03-27T12:19:38.583872775Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "spring-boot-actuator",
+    "date" : "2025-03-27T12:19:38.902383381Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  }, {
+    "module" : "spring-boot-tomcat",
+    "date" : "2025-03-27T12:19:39.276883358Z",
+    "properties" : {
+      "packageName" : "org.systhemis.opdocai",
+      "projectName" : "OpDoc AI",
+      "baseName" : "opdocai",
+      "serverPort" : 8080,
+      "endOfLine" : "lf",
+      "indentSize" : 2,
+      "springConfigurationFormat" : "yaml"
+    }
+  } ]
+}

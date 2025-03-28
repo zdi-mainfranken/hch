@@ -1,0 +1,55 @@
+:host {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.angular-logo {
+  width: 135px;
+  height: 50px;
+}
+
+.logo-div {
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: center;
+}
+.op-doc-logo {
+  margin-top: 20px;
+  width: 75px;
+  height: 75px;
+}
+.op-doc-name {
+  align-content: center;
+  vertical-align: center;
+  font-size: 50px;
+}
+.sponsor-logo {
+  max-height: 40px;
+}
+.image-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.space-separator {
+  flex: 1 1 auto;
+}
+
+#footer {
+  border-top: 2px solid #acacac;
+  width: 100%;
+  text-align: center;
+}
+
+.header {
+}
+
+.main-content {
+  flex: 1;
+}

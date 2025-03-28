@@ -1,0 +1,20 @@
+logging:
+  config: classpath:logback.xml
+  level:
+    org:
+      systhemis:
+        opdocai: 'OFF'
+spring:
+  main:
+    banner-mode: 'off'
+  datasource:
+    driver-class-name: org.testcontainers.jdbc.ContainerDatabaseDriver
+    hikari:
+      maximum-pool-size: 2
+    password: ''
+    url: jdbc:tc:postgresql:17.4:///opdocai?TC_TMPFS=/testtmpfs:rw
+    username: opdocai
+  liquibase:
+    contexts: test
+server:
+  port: 0
