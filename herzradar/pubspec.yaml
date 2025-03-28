@@ -1,0 +1,42 @@
+name: herzradar
+description: Heart failure monitoring app for elderly patients
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+  go_router: ^5.2.0
+  camera: ^0.10.0+1
+  path_provider: ^2.0.11
+  video_player: ^2.4.7
+  permission_handler: ^10.0.0
+  wakelock: any
+  qr_code_scanner: ^1.0.1
+  shared_preferences: ^2.0.15
+  intl: ^0.17.0
+  provider: ^6.0.3
+  record: ^4.4.4         # For audio recording
+  audioplayers: ^4.0.1   # For audio playback
+  flutter_sound: ^9.2.13 # For audio utilities
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+  fonts:
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Bold.ttf
+          weight: 700
