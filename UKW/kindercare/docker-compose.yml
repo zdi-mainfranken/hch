@@ -1,0 +1,83 @@
+version: "3.8"
+
+services:
+  # Traefik reverse proxy
+  traefik:
+    image: traefik:v2.10
+    container_name: "traefik"
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    ports:
+      - "${TRAEFIK_HTTP_PORT:-80}:80"
+      - "${TRAEFIK_HTTPS_PORT:-443}:443"
+      - "${TRAEFIK_DASHBOARD_PORT:-8080}:8080"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+    networks:
+      - kindercare-net
+    restart: unless-stopped
+
+  # LimeSurvey backend
+  limesurvey:
+    build:
+      context: backend/6.0/apache/
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend/surveys:/var/www/html/upload/surveys
+    networks:
+      - kindercare-net
+    depends_on:
+      - lime-db
+    labels:
+      traefik.enable: 'true'
+      traefik.http.routers.limesurvey-router.entrypoints: "web"
+      traefik.http.routers.limesurvey-router.rule: "PathPrefix(`/limesurvey`)"
+      traefik.http.services.limesurvey-service.loadbalancer.server.port: "8080"
+    environment:
+      - "DB_TYPE=${DB_TYPE:-pgsql}"
+      - "DB_PORT=${DB_PORT:-5432}"
+      - "DB_HOST=lime-db"
+      - "DB_PASSWORD=${DB_PASSWORD:-test}"
+      - "ADMIN_PASSWORD=${ADMIN_PASSWORD:-test}"
+      - "PUBLIC_URL=${PUBLIC_URL:-http://localhost/limesurvey}"
+      - "BASE_URL=${BASE_URL:-http://localhost/limesurvey}"
+    restart: unless-stopped
+
+  # PostgreSQL database
+  lime-db:
+    image: postgres:17
+    volumes:
+      - ./backend/postgres-data:/var/lib/postgresql/data
+    networks:
+      - kindercare-net
+    environment:
+      - "POSTGRES_DB=${POSTGRES_DB:-limesurvey}"
+      - "POSTGRES_USER=${POSTGRES_USER:-limesurvey}"
+      - "POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-test}"
+    restart: unless-stopped
+
+  # Frontend application
+  frontend:
+    build:
+      context: frontend/
+      dockerfile: Dockerfile.frontend
+    networks:
+      - kindercare-net
+    depends_on:
+      - limesurvey
+    labels:
+      traefik.enable: 'true'
+      traefik.http.routers.frontend-router.entrypoints: "web"
+      traefik.http.routers.frontend-router.rule: "PathPrefix(`/`)"
+      traefik.http.services.frontend-service.loadbalancer.server.port: "3030"
+    environment:
+      - "API_URL=${FRONTEND_API_URL:-http://localhost/limesurvey}"
+    restart: unless-stopped
+
+networks:
+  kindercare-net:
+    driver: bridge

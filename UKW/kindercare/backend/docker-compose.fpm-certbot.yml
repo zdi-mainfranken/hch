@@ -1,0 +1,50 @@
+version: "3.0"
+services:
+  limesurvey:
+    build:
+      context: 6.0/fpm/
+      dockerfile: Dockerfile
+    volumes:
+      # Hint: This is just an example, change /tmp to something persistent
+      - /tmp/upload/surveys:/var/www/html/upload/surveys
+      - lime:/var/www/html
+    links:
+      - lime-db
+    depends_on:
+      - lime-db
+    environment:
+      - "DB_HOST=lime-db"
+      # - "DB_PASSWORD="
+      # - "ADMIN_PASSWORD="
+   lime-web:
+    build:
+      context: nginx-certbot/
+      dockerfile: Dockerfile
+    links:
+      - limesurvey
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./examples/nginx-certbot.conf:/etc/nginx/nginx.conf:ro
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+      - lime:/var/www/html
+    environment:
+      - "HOSTNAMES=www.example.com example.com"
+  certbot:
+    image: docker.io/certbot/certbot
+    restart: unless-stopped
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+  lime-db:
+    image: docker.io/mysql:5.7
+    environment:
+      - "MYSQL_USER=limesurvey"
+      - "MYSQL_DATABASE=limesurvey"
+      # - "MYSQL_PASSWORD="
+      # - "MYSQL_ROOT_PASSWORD="
+volumes:
+  lime:
