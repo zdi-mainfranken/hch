@@ -16,3 +16,5 @@ TRIAS MedRAG is a Retrieval-Augmented Generation (RAG) system developed during t
 - **Generation Component**: LLM-based text generation using retrieved context
 - **Knowledge Base**: Curated collection of medical literature, guidelines, and research papers
 
+- Landingpage repository: https://github.com/LamprechtRobin/medical-rag-app.git
+
