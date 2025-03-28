@@ -33,8 +33,8 @@ export function generatePassphrase(): string {
   const selectedWords = Array.from({ length: 3 }, () => 
     germanWords[Math.floor(Math.random() * germanWords.length)]
   );
-  
-  return selectedWords.join("-");
+  //return selectedWords.join("-");
+  return "Baum-Katze-Wasser";
 }
 
 // Format date to locale string
