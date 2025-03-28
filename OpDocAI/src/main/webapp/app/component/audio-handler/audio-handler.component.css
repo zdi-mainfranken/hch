@@ -1,0 +1,7 @@
+/* audio-stream.component.css */
+.audio-stream {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-top: 20px;
+}

@@ -1,0 +1,55 @@
+<div class="audio-stream">
+    <!-- File Upload Controls -->
+    <div>
+        <label>Operations Identifier:</label>
+        <input type="text" [(ngModel)]="operationIdentifier">
+        <button (click)="onCreateDirectory()">Create Directory</button>
+    </div>
+    <hr>
+
+    <div>
+
+        <h1>Audio Stream</h1>
+        <button (click)="startRecording()" [disabled]="isRecording() || !identifierCreated()">
+            Aufnahme Starten
+        </button>
+        <button (click)="stopRecording()" [disabled]="!isRecording() || !identifierCreated()">
+            Aufnahme Beenden
+        </button>
+
+        <button (click)="downloadAudio()" [disabled]="!audioBlob() || isRecording() || !identifierCreated()">
+            Audio Downloaden
+        </button>
+        <button (click)="onUpload()" [disabled]="!audioBlob() || isRecording() || !identifierCreated()">
+            Audio Hochladen
+        </button>
+
+    </div>
+    <div>
+        <ng-container *ngIf="audioLength()">
+            <span>Aufnahmelänge: {{ audioLength() | date:"mm:ss.SSS" }}</span>
+        </ng-container>
+    </div>
+
+    <hr>
+
+    <div>
+        <!-- File Upload Controls -->
+        <input type="file" [disabled]="!identifierCreated()" (change)="onFileSelected($event)" accept="audio/*">
+        <button (click)="onFileUpload()" [disabled]="!selectedFile || !identifierCreated()">
+            Datei Hochladen
+        </button>
+    </div>
+
+    <span class="absolute-position" *ngIf="loadingIndicator()">
+        <span class="inner">Datei Hochladen...</span>
+        <span class="loader"></span>
+    </span>
+
+    <ng-container *ngIf="fileUploaded()">
+        <app-script-handler
+                [filename]="fileName()"
+                [directory]="operationIdentifier()">
+        </app-script-handler>
+    </ng-container>
+</div>
