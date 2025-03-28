@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'wouter';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -16,8 +16,30 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
   const [passphrase, setPassphrase] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  // Create a reference to the form element
+  const formRef = useRef<HTMLFormElement | null>(null);
+
+  // Effect hook to handle URL parameter extraction and auto-filling
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+    
+    if (id) {
+      setPassphrase(id.trim());  // Trim the passphrase immediately
+    }
+  }, []);
+
+  // Tigger form submission when passphrase is set
+  useEffect(() => {
+    if (passphrase) {
+      setTimeout(() => {
+        handleLogin();
+      }, 500);
+    }
+  }, [passphrase]);  // Trigger on passphrase change
+
+  const handleLogin = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
     
     if (!passphrase.trim()) {
       toast({
@@ -62,7 +84,7 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin}>
+          <form ref={formRef} onSubmit={handleLogin}>
             <div className="grid gap-4">
               <div className="grid gap-2">
                 <label htmlFor="passphrase" className="text-sm font-medium">
