@@ -1,9 +1,7 @@
-version: "3.8"
-
 services:
   # Traefik reverse proxy
   traefik:
-    image: traefik:v2.10
+    image: traefik:v3.3
     container_name: "traefik"
     command:
       - "--api.insecure=true"
@@ -35,7 +33,7 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.http.routers.limesurvey-router.entrypoints: "web"
-      traefik.http.routers.limesurvey-router.rule: "PathPrefix(`/limesurvey`)"
+      traefik.http.routers.limesurvey-router.rule: "PathPrefix(`/index.php`)"
       traefik.http.services.limesurvey-service.loadbalancer.server.port: "8080"
     environment:
       - "DB_TYPE=${DB_TYPE:-pgsql}"
@@ -43,8 +41,8 @@ services:
       - "DB_HOST=lime-db"
       - "DB_PASSWORD=${DB_PASSWORD:-test}"
       - "ADMIN_PASSWORD=${ADMIN_PASSWORD:-test}"
-      - "PUBLIC_URL=${PUBLIC_URL:-http://localhost/limesurvey}"
-      - "BASE_URL=${BASE_URL:-http://localhost/limesurvey}"
+      - "PUBLIC_URL=${PUBLIC_URL:-http://localhost}"
+      - "BASE_URL=${BASE_URL:-http://localhost}"
     restart: unless-stopped
 
   # PostgreSQL database
@@ -72,10 +70,8 @@ services:
     labels:
       traefik.enable: 'true'
       traefik.http.routers.frontend-router.entrypoints: "web"
-      traefik.http.routers.frontend-router.rule: "PathPrefix(`/`)"
+      traefik.http.routers.frontend-router.rule: "PathPrefix(`/`) && !PathPrefix(`/index.php`)"
       traefik.http.services.frontend-service.loadbalancer.server.port: "3030"
-    environment:
-      - "API_URL=${FRONTEND_API_URL:-http://localhost/limesurvey}"
     restart: unless-stopped
 
 networks:
