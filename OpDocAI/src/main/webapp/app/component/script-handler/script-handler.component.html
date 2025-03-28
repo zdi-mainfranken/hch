@@ -1,0 +1,21 @@
+<div class="column">
+    <div>
+        <button (click)="onStartTranscript()">Start Transcript</button>
+        <button *ngIf="fullResultReceived()" (click)="onRequestReport()">Rerun Report</button>
+    </div>
+    <span class="absolute-position" *ngIf="started() && (!filteredResultReceived() || !fullResultReceived)">
+        <span class="inner">Verarbeitung...</span>
+        <span class="loader"></span>
+    </span>
+
+    <div class="text-areas">
+        <div class="text-div">
+        <textarea [(ngModel)]="fullResponse" readonly></textarea>
+        </div>
+
+        <div class="text-div">
+        <textarea [(ngModel)]="filteredResponse" readonly></textarea>
+        </div>
+    </div>
+
+</div>

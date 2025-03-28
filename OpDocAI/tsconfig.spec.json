@@ -1,0 +1,8 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "target/out-tsc/spec",
+    "types": ["jest", "node"]
+  },
+  "include": ["src/main/webapp/**/*.spec.ts", "src/main/webapp/**/*.d.ts"]
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration>
+<configuration scan="true">
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+  <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+  <logger name="org.systhemis.opdocai" level="OFF" />
+
+  <logger name="ch.qos.logback" level="WARN" />
+  <logger name="com.sun" level="WARN" />
+  <logger name="org.springframework" level="WARN" />
+  <logger name="com.github.dockerjava" level="WARN" />
+  <logger name="org.testcontainers" level="WARN" />
+  <logger name="org.postgresql" level="WARN" />
+  <logger name="org.jboss.logging" level="WARN" />
+  <logger name="org.hibernate.validator" level="WARN" />
+  <logger name="org.hibernate.orm" level="WARN" />
+  <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF" />
+  <logger name="liquibase" level="WARN" />
+  <logger name="LiquibaseSchemaResolver" level="INFO" />
+  <logger name="com.zaxxer.hikari" level="WARN" />
+  <logger name="org.springframework.web" level="ERROR" />
+  <!-- jhipster-needle-logback-add-log -->
+</configuration>

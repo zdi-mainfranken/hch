@@ -1,0 +1,32 @@
+<mat-toolbar class="header">
+  <img alt="Angular logo" class="angular-logo" ngSrc="content/images/HealthcareHackathon.png" width="120" height="50" priority />
+
+  <span class="toolbar-spacer"></span>
+  <span>{{ appName() }}</span>
+  <span class="space-separator" id="menu-space-separator"></span>
+</mat-toolbar>
+
+<div class="main-content">
+  <div class="logo-div">
+    <img alt="OpDocAI logo" class="op-doc-logo" ngSrc="content/images/OpDocLogo.png" width="50" height="50" priority />
+    <span class="op-doc-name">{{ appName() }}</span>
+  </div>
+
+  <router-outlet />
+</div>
+
+<div id="footer">
+  <h1>{{ appName() }} Created in Collaboration with:</h1>
+  <div class="image-flex">
+    <img alt="SYSTHEMIS logo" class="sponsor-logo" src="content/images/Systhemis.png" />
+    <img alt="Uniklinikum logo" class="sponsor-logo" src="content/images/Uniklinikum.svg" />
+    <img alt="Healtcare Hackathon logo" class="sponsor-logo" src="content/images/HealthcareHackathon.png" />
+    <img alt="AWS logo" class="sponsor-logo" src="content/images/AWS.png" />
+    <img alt="Bayern Innovativ logo" class="sponsor-logo" src="content/images/bayern-innovativ.jpg" />
+    <img alt="Cherry logo" class="sponsor-logo" src="content/images/Cherry.svg" />
+    <img alt="Digicare logo" class="sponsor-logo" src="content/images/digicare.png" />
+    <img alt="Frisenius logo" class="sponsor-logo" src="content/images/frisenius.png" />
+    <img alt="Vogel Stiftung logo" class="sponsor-logo" src="content/images/Vogel.svg" />
+    <img alt="WVV logo" class="sponsor-logo" src="content/images/WVV.png" />
+  </div>
+</div>

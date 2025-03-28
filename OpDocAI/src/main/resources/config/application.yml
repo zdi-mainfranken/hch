@@ -1,0 +1,87 @@
+logging:
+  level:
+    org:
+      systhemis:
+        opdocai: INFO
+  file:
+    name: "${logging.file.path}/opdocapi.log"
+    path: ./logs
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %magenta([%thread]) %highlight(%-5level) %cyan(%logger{36}.%M): %msg%n"
+  logback:
+    rollingpolicy:
+      max-history: 30
+      max-file-size: 10MB
+      file-name-pattern: "${logging.file.path}/opdocapi-%d{yyyy-MM-dd}.%i.log"
+spring:
+  application:
+    name: Opdocai
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      auto-commit: false
+      poolName: Hikari
+    password: ''
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/opdocai
+    username: opdocai
+  data:
+    jpa:
+      repositories:
+        bootstrap-mode: deferred
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
+    open-in-view: false
+    properties:
+      hibernate:
+        connection:
+          provider_disables_autocommit: true
+        generate_statistics: false
+        jdbc:
+          batch_size: 25
+          time_zone: UTC
+        order_inserts: true
+        order_updates: true
+        query:
+          fail_on_pagination_over_collection_fetch: true
+          in_clause_parameter_padding: true
+  liquibase:
+    change-log: classpath:config/liquibase/master.xml
+  jackson:
+    default-property-inclusion: non_absent
+  cloud:
+    aws:
+      region: us-west-2
+      access-key:
+      secret-key:
+      session-token:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: always
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include:
+        - configprops
+        - env
+        - health
+        - info
+        - logfile
+        - loggers
+        - threaddump
+server:
+  port: 8080
+
