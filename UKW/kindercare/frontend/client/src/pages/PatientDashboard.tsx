@@ -170,32 +170,33 @@ const PatientDashboard = ({ patient }: PatientDashboardProps) => {
                   ) : (
                     <div className="divide-y divide-slate-200">
                       {groupedQuestionnaires.dueNow.map((questionnaire) => (
-                        <div key={questionnaire.id} className="flex items-center justify-between p-4">
-                          <div>
-                            <h5 className="font-medium">
-                              {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
-                            </h5>
-                            <p className="text-sm text-slate-500">
-                              Due: {formatDate(questionnaire.dueDate)} ({getTimeDescription(questionnaire.dueDate)})
-                            </p>
-                            <div className="flex items-center mt-1">
-                              <span className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
-                                <Clock className="mr-1 h-3 w-3" /> {questionnaire.questionnaire?.questionCount < 10 ? '5-10' : '10-15'} minutes
-                              </span>
+                        <a
+                          key={questionnaire.id}
+                          href={limesurveyApi.getSurveyUrl(
+                            questionnaire.questionnaire?.limesurveyId || 0,
+                            patientDetails?.passphrase || "BaumKatzeWasser"
+                          )}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block p-4 hover:bg-slate-50 transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h5 className="font-medium">
+                                {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
+                              </h5>
+                              <p className="text-sm text-slate-500">
+                                Due: {formatDate(questionnaire.dueDate)} ({getTimeDescription(questionnaire.dueDate)})
+                              </p>
+                              <div className="flex items-center mt-1">
+                                <span className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">
+                                  <Clock className="mr-1 h-3 w-3" /> {questionnaire.questionnaire?.questionCount < 10 ? '5-10' : '10-15'} minutes
+                                </span>
+                              </div>
                             </div>
+                            <span className="text-primary-600">Start Survey →</span>
                           </div>
-                          <a 
-                            href={limesurveyApi.getSurveyUrl(
-                              questionnaire.questionnaire?.limesurveyId || 0,
-                              patientDetails?.passphrase || "31337" // Use patient's passphrase as token, fallback to fixed token if not available
-                            )} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-                          >
-                            Start Survey
-                          </a>
-                        </div>
+                        </a>
                       ))}
                     </div>
                   )}
@@ -215,24 +216,30 @@ const PatientDashboard = ({ patient }: PatientDashboardProps) => {
                   ) : (
                     <div className="divide-y divide-slate-200">
                       {groupedQuestionnaires.upcoming.map((questionnaire) => (
-                        <div key={questionnaire.id} className="flex items-center justify-between p-4">
-                          <div>
-                            <h5 className="font-medium">
-                              {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
-                            </h5>
-                            <p className="text-sm text-slate-500">
-                              Due: {formatDate(questionnaire.dueDate)} ({getTimeDescription(questionnaire.dueDate)})
-                            </p>
-                            <div className="flex items-center mt-1">
-                              <span className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 text-slate-800">
-                                <Clock className="mr-1 h-3 w-3" /> {questionnaire.questionnaire?.questionCount < 10 ? '5-10' : '10-15'} minutes
-                              </span>
+                        <a
+                          key={questionnaire.id}
+                          href="#"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block p-4 hover:bg-slate-50 transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h5 className="font-medium">
+                                {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
+                              </h5>
+                              <p className="text-sm text-slate-500">
+                                Due: {formatDate(questionnaire.dueDate)} ({getTimeDescription(questionnaire.dueDate)})
+                              </p>
+                              <div className="flex items-center mt-1">
+                                <span className="text-xs inline-flex items-center px-2 py-0.5 rounded-full bg-slate-100 text-slate-800">
+                                  <Clock className="mr-1 h-3 w-3" /> {questionnaire.questionnaire?.questionCount < 10 ? '5-10' : '10-15'} minutes
+                                </span>
+                              </div>
                             </div>
+                            <span className="text-primary-600">Not Yet Available →</span>
                           </div>
-                          <Button disabled variant="outline">
-                            Not Yet Available
-                          </Button>
-                        </div>
+                        </a>
                       ))}
                     </div>
                   )}
@@ -252,19 +259,27 @@ const PatientDashboard = ({ patient }: PatientDashboardProps) => {
                   ) : (
                     <div className="divide-y divide-slate-200">
                       {groupedQuestionnaires.completed.map((questionnaire) => (
-                        <div key={questionnaire.id} className="flex items-center justify-between p-4">
-                          <div>
-                            <h5 className="font-medium">
-                              {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
-                            </h5>
-                            <p className="text-sm text-slate-500">
-                              Completed on: {questionnaire.completedAt ? formatDate(questionnaire.completedAt) : 'Unknown date'}
-                            </p>
+                        <a
+                          key={questionnaire.id}
+                          href="#"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block p-4 hover:bg-slate-50 transition-colors"
+                        >
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h5 className="font-medium">
+                                {questionnaire.questionnaire?.title} ({questionnaire.questionnaire?.domain} Assessment)
+                              </h5>
+                              <p className="text-sm text-slate-500">
+                                Completed on: {questionnaire.completedAt ? formatDate(questionnaire.completedAt) : 'Unknown date'}
+                              </p>
+                            </div>
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                              Completed
+                            </span>
                           </div>
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            Completed
-                          </span>
-                        </div>
+                        </a>
                       ))}
                     </div>
                   )}

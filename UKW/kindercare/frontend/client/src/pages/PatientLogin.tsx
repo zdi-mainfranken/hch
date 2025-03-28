@@ -19,24 +19,15 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
   // Create a reference to the form element
   const formRef = useRef<HTMLFormElement | null>(null);
 
-  // Effect hook to handle URL parameter extraction and auto-filling
+  // Effect hook to handle URL parameter extraction
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const urlPassphrase = params.get('passphrase');
     
     if (urlPassphrase) {
-      setPassphrase(urlPassphrase.trim());  // Trim the passphrase immediately
+      setPassphrase(urlPassphrase.trim());
     }
   }, []);
-
-  // Tigger form submission when passphrase is set
-  useEffect(() => {
-    if (passphrase) {
-      setTimeout(() => {
-        handleLogin();
-      }, 500);
-    }
-  }, [passphrase]);  // Trigger on passphrase change
 
   const handleLogin = async (e?: React.FormEvent) => {
     if (e) e.preventDefault();
@@ -96,6 +87,8 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
                   value={passphrase}
                   onChange={(e) => setPassphrase(e.target.value)}
                   disabled={loading}
+                  autoComplete="off"
+                  type="text"
                 />
                 <p className="text-xs text-muted-foreground">
                   Your passphrase consists of three German words separated by hyphens.
@@ -110,13 +103,6 @@ const PatientLogin = ({ onLogin }: PatientLoginProps) => {
         <CardFooter className="flex flex-col space-y-4">
           <div className="text-sm text-muted-foreground text-center">
             <p>Lost your passphrase? Please contact your healthcare provider.</p>
-          </div>
-          <div className="text-sm text-muted-foreground text-center">
-            <p>
-              <Button variant="link" onClick={() => navigate("/")}>
-                Doctor Login
-              </Button>
-            </p>
           </div>
         </CardFooter>
       </Card>

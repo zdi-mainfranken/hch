@@ -117,7 +117,7 @@ export class MemStorage implements IStorage {
     
     // Create default questionnaires with the real LimeSurvey IDs
     const eq5d = await this.createQuestionnaire({
-      limesurveyId: 234952,
+      limesurveyId: 844253,
       title: "EQ-5D-5L Health Survey",
       domain: "Health",
       questionCount: 5
@@ -131,14 +131,14 @@ export class MemStorage implements IStorage {
     });
     
     const hads = await this.createQuestionnaire({
-      limesurveyId: 234954,
+      limesurveyId: 844253,
       title: "HADS Mental Health Survey",
       domain: "Emotion",
       questionCount: 14
     });
     
     const icufsq = await this.createQuestionnaire({
-      limesurveyId: 234955,
+      limesurveyId: 844253,
       title: "ICU-FSQ Family Survey",
       domain: "Family",
       questionCount: 24

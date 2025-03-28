@@ -235,10 +235,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (method === "list_surveys") {
           return res.status(200).json({ 
             result: [
-              { sid: 234952, surveyls_title: "EQ-5D-5L Health Survey", active: "Y" },
-              { sid: 234953, surveyls_title: "MoCA Cognitive Assessment", active: "Y" },
-              { sid: 234954, surveyls_title: "HADS Mental Health Survey", active: "Y" },
-              { sid: 234955, surveyls_title: "ICU-FSQ Family Survey", active: "Y" }
+              { sid: 844253, surveyls_title: "EQ-5D-5L Health Survey", active: "Y" },
+              { sid: 844253, surveyls_title: "MoCA Cognitive Assessment", active: "Y" },
+              { sid: 844253, surveyls_title: "HADS Mental Health Survey", active: "Y" },
+              { sid: 844253, surveyls_title: "ICU-FSQ Family Survey", active: "Y" }
             ],
             id,
             jsonrpc: "2.0"
@@ -269,7 +269,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               "Tokens": [
                 {
                   "tid": "1",
-                  "token": "31337",
+                  "token": "BaumKatzeWasser",
                   "firstname": "",
                   "lastname": "",
                   "email": ""
