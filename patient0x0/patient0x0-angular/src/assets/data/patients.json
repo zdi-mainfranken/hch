@@ -1,0 +1,677 @@
+{
+    "patients": [
+      {
+        "id": 1,
+        "name": "Jonas Schmidt",
+        "age": 67,
+        "gender": "männlich",
+        "personality": "schüchtern",
+        "mainComplaint": "Anhaltende Kopfschmerzen und Schwindel",
+        "difficulty": "mittel",
+        "specialFocus": ["Anamnese", "Geriatrie", "Neurologie"],
+        "thumbnailUrl": "assets/patient0.jpg",
+        "videoUrl": "assets/video5.mp4",
+        "description": "Jonas Schmidt kommt mit anhaltenden Kopfschmerzen und Schwindelgefühl in die Praxis. Sie hatte vor einer Woche einen kleinen Sturz. Ziel ist es, eine gründliche Anamnese durchzuführen und mögliche neurologische Ursachen zu identifizieren.",
+        "conversationStages": [
+          {
+            "id": 1,
+            "name": "Begrüßung und Gesprächseröffnung",
+            "description": "Stellen Sie sich vor und schaffen Sie eine vertrauensvolle Atmosphäre",
+            "requiredPoints": [1, 5],
+            "maxMessages": 3,
+            "triggerPhrases": ["hallo", "guten tag", "mein name ist"]
+          },
+          {
+            "id": 2,
+            "name": "Hauptbeschwerden erfassen",
+            "description": "Erfragen Sie die Hauptsymptome und deren Charakteristika",
+            "requiredPoints": [3, 4, 5, 6],
+            "maxMessages": 8
+          },
+          {
+            "id": 3,
+            "name": "Medizinische Vorgeschichte",
+            "description": "Erfassen Sie relevante Vorerkrankungen und Risikofaktoren",
+            "requiredPoints": [7, 8, 9],
+            "maxMessages": 5
+          },
+          {
+            "id": 4,
+            "name": "Psychosoziale Anamnese",
+            "description": "Berücksichtigen Sie soziale und psychische Aspekte",
+            "requiredPoints": [10, 11],
+            "maxMessages": 4
+          },
+          {
+            "id": 5,
+            "name": "Gesprächsabschluss",
+            "description": "Fassen Sie zusammen und besprechen Sie das weitere Vorgehen",
+            "requiredPoints": [12, 13, 14],
+            "maxMessages": 3,
+            "triggerPhrases": ["auf wiedersehen", "alles gute", "schönen tag noch"]
+          }
+        ],
+        "keyPoints": [
+          {
+            "id": 1,
+            "category": "kommunikation",
+            "description": "Begrüßung mit Namensnennung und Vorstellung der eigenen Rolle",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 3,
+            "category": "anamnese",
+            "description": "Erfragen der Kopfschmerzcharakteristik (Lokalisation, Qualität, Intensität)",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 4,
+            "category": "anamnese",
+            "description": "Erfragen der Schwindelsymptomatik (Art, Auslöser, Begleitsymptome)",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 5,
+            "category": "anamnese",
+            "description": "Zeitlicher Verlauf der Symptome in Bezug zum Sturz",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 6,
+            "category": "anamnese",
+            "description": "Neurologische Begleitsymptome (Sehstörungen, Sensibilitätsstörungen, etc.)",
+            "importance": "mittel",
+            "points": 7
+          },
+          {
+            "id": 7,
+            "category": "anamnese",
+            "description": "Vorerkrankungen mit Fokus auf neurologische und kardiovaskuläre Erkrankungen",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 8,
+            "category": "anamnese",
+            "description": "Aktuelle Medikation inklusive Selbstmedikation",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 9,
+            "category": "anamnese",
+            "description": "Familienanamnese bezüglich neurologischer Erkrankungen",
+            "importance": "niedrig",
+            "points": 3
+          },
+          {
+            "id": 10,
+            "category": "anamnese",
+            "description": "Wohnsituation und Unterstützungssystem (alleinlebend?)",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 11,
+            "category": "empathie",
+            "description": "Erfragen der Auswirkungen auf den Alltag/Einschränkungen",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 12,
+            "category": "kommunikation",
+            "description": "Zusammenfassung der wesentlichen Informationen",
+            "importance": "mittel",
+            "points": 7
+          },
+          {
+            "id": 13,
+            "category": "kommunikation",
+            "description": "Erklärung der geplanten Diagnostik in verständlicher Sprache",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 14,
+            "category": "empathie",
+            "description": "Eingehen auf Ängste/Sorgen der Patientin",
+            "importance": "mittel",
+            "points": 5
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Thomas Meier",
+        "age": 45,
+        "gender": "männlich",
+        "personality": "ungeduldig",
+        "mainComplaint": "Brustschmerzen und Kurzatmigkeit",
+        "difficulty": "schwer",
+        "specialFocus": ["Notfallmedizin", "Kardiologie", "Risikoerkennung"],
+        "thumbnailUrl": "assets/patient1.jpg",
+        "videoUrl": "assets/video4.mp4",
+        "description": "Thomas Meier berichtet über plötzliche Brustschmerzen, die in den linken Arm ausstrahlen. Er wirkt ängstlich und hat Atemnot. Es besteht Verdacht auf ein akutes Koronarsyndrom. Die schnelle und korrekte Diagnose ist entscheidend.",
+        "conversationStages": [],
+        "keyPoints": []
+      },
+      {
+        "id": 3,
+        "name": "Sophie Klein",
+        "age": 23,
+        "gender": "weiblich",
+        "personality": "freundlich",
+        "mainComplaint": "Anhaltende Müdigkeit und Gewichtsverlust",
+        "difficulty": "leicht",
+        "specialFocus": ["Innere Medizin", "Kommunikation", "Differentialdiagnose"],
+        "thumbnailUrl": "assets/patient5.jpg",
+        "videoUrl": "assets/video6.mp4",
+        "description": "Sophie Klein ist Studentin und klagt über anhaltende Müdigkeit, die seit ca. 3 Monaten besteht. Sie hat unbeabsichtigt 5 kg Gewicht verloren. Das Gespräch soll eine strukturierte Anamnese und Entwicklung eines Untersuchungsplans umfassen.",
+        "conversationStages": [],
+        "keyPoints": []
+      },
+      {
+        "id": 4,
+        "name": "Hans Dietrich",
+        "age": 60,
+        "gender": "männlich",
+        "personality": "komplett genervt",
+        "mainComplaint": "Verstärkte Asthma-Beschwerden im Frühling bei hoher Pollenbelastung",
+        "difficulty": "leicht",
+        "specialFocus": ["Chronische Erkrankungen", "Pneumologie", "Prävention"],
+        "thumbnailUrl": "assets/patient4.jpg",
+        "videoUrl": "assets/video3.mp4",
+        "description": "Hans Dietrich (60) ist seit 20 Jahren Patient in Ihrer Hausarztpraxis. Er hat ein gut eingestelltes Asthma bronchiale und ist Raucher. Er kommt regelmäßig 2-3 Mal pro Jahr zur Routinekontrolle und Medikamentenanpassung. Er ist ein angenehmer, offener Patient mit guter Compliance. Vor kurzem ist er Großvater geworden, worüber er sich sehr freut. Aktuell berichtet er über verstärkte Asthma-Symptome im Frühling bei hoher Pollenbelastung.",
+        "conversationStages": [
+          {
+            "id": 1,
+            "name": "Begrüßung",
+            "description": "Begrüßen Sie den Patienten und bauen Sie Rapport auf",
+            "requiredPoints": [1, 2],
+            "maxMessages": 2
+          },
+          {
+            "id": 2,
+            "name": "Kurzanamnese",
+            "description": "Erfassen Sie die aktuellen Beschwerden und deren Ausprägung",
+            "requiredPoints": [3, 4, 5, 6, 7],
+            "maxMessages": 3
+          },
+          {
+            "id": 3,
+            "name": "Festlegung Prozedere",
+            "description": "Besprechen Sie therapeutische Maßnahmen und Empfehlungen",
+            "requiredPoints": [8, 9, 10, 11],
+            "maxMessages": 3
+          },
+          {
+            "id": 4,
+            "name": "Verabschiedung",
+            "description": "Schließen Sie das Gespräch freundlich ab und klären letzte Fragen",
+            "requiredPoints": [12, 13],
+            "maxMessages": 2,
+            "triggerPhrases": ["auf wiedersehen", "alles gute", "schönen tag noch"]
+          }
+        ],
+        "keyPoints": [
+          {
+            "id": 1,
+            "category": "kommunikation",
+            "description": "Freundliche Begrüßung und Bezugnahme auf die lange Behandlungsbeziehung",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 2,
+            "category": "empathie",
+            "description": "Gratulation zur Großvaterschaft und persönliches Interesse zeigen",
+            "importance": "niedrig",
+            "points": 3
+          },
+          {
+            "id": 3,
+            "category": "anamnese",
+            "description": "Erfragen der aktuellen Asthma-Symptome (Husten, Atemnot, pfeifendes Atemgeräusch)",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 4,
+            "category": "anamnese",
+            "description": "Erfassen der Auslösefaktoren (Pollen, Wetterumschwung, körperliche Belastung)",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 5,
+            "category": "anamnese",
+            "description": "Erfragen der aktuellen Medikamenteneinnahme und Therapietreue",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 6,
+            "category": "anamnese",
+            "description": "Abfragen von Notfallmedikamentennutzung (Häufigkeit der Bedarfsmedikation)",
+            "importance": "mittel",
+            "points": 6
+          },
+          {
+            "id": 7,
+            "category": "anamnese",
+            "description": "Erfragen des aktuellen Rauchverhaltens",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 8,
+            "category": "diagnose",
+            "description": "Erklärung des Zusammenhangs zwischen Pollenbelastung und Asthma-Symptomen",
+            "importance": "mittel",
+            "points": 7
+          },
+          {
+            "id": 9,
+            "category": "kommunikation",
+            "description": "Besprechung der Anpassung der Medikation während der Pollensaison",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 10,
+            "category": "kommunikation",
+            "description": "Ansprechen des Rauchens und Motivation zur Reduktion/zum Aufhören",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 11,
+            "category": "empathie",
+            "description": "Verständnis für die Herausforderungen bei Verhaltensänderungen zeigen",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 12,
+            "category": "kommunikation",
+            "description": "Zusammenfassung der Vereinbarungen und des weiteren Vorgehens",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 13,
+            "category": "empathie",
+            "description": "Nachfragen zu weiteren Anliegen und freundliche Verabschiedung",
+            "importance": "niedrig",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "id": 5,
+        "name": "Hans Dietrich Teil 2",
+        "age": 60,
+        "gender": "männlich",
+        "mainComplaint": "Verschlimmerung der Atemwegssymptome mit Kurzatmigkeit, Keuchen und Blutspuren im Auswurf",
+        "difficulty": "schwer",
+        "specialFocus": ["Chronische Erkrankungen", "Pneumologie", "Differentialdiagnose", "Überbringen kritischer Befunde"],
+        "thumbnailUrl": "assets/patient4-2.jpg",
+        "videoUrl": "assets/video3.mp4",
+        "description": "Hans Dietrich (60) ist seit 20 Jahren Patient in Ihrer Hausarztpraxis mit gut eingestelltem Asthma bronchiale und einer Raucheranamnese von 30 Pack Years. Nachdem er vor einigen Wochen wegen einer pollenbedingten Asthma-Verschlechterung in Ihrer Praxis war, hat er nun erneut Beschwerden entwickelt. Er berichtet über zunehmende Kurzatmigkeit, Keuchen und – besonders beunruhigend – über produktiven Husten mit Blutspuren im Auswurf. Nach einer ersten Untersuchung und diagnostischen Tests müssen Sie ihm die Ergebnisse mitteilen und die weitere Diagnostik besprechen.",
+        "conversationStages": [
+          {
+            "id": 1,
+            "name": "Begrüßung und Einleitung",
+            "description": "Begrüßen Sie den Patienten und erfragen Sie die aktuellen Beschwerden",
+            "requiredPoints": [1, 2, 3],
+            "maxMessages": 3
+          },
+          {
+            "id": 2,
+            "name": "Detaillierte Anamnese",
+            "description": "Erfassen Sie die Symptome und deren zeitlichen Verlauf",
+            "requiredPoints": [4, 5, 6, 7, 8],
+            "maxMessages": 8
+          },
+          {
+            "id": 3,
+            "name": "Befundbesprechung nach Tests",
+            "description": "Erklären Sie die Ergebnisse der diagnostischen Tests",
+            "requiredPoints": [9, 10, 11, 12],
+            "maxMessages": 5
+          },
+          {
+            "id": 4,
+            "name": "Planung der weiteren Diagnostik",
+            "description": "Besprechen Sie die notwendigen Folgeuntersuchungen",
+            "requiredPoints": [13, 14, 15],
+            "maxMessages": 5
+          },
+          {
+            "id": 5,
+            "name": "Umgang mit Sorgen und Abschluss",
+            "description": "Gehen Sie auf die Ängste des Patienten ein und schließen Sie das Gespräch einfühlsam ab",
+            "requiredPoints": [16, 17, 18],
+            "maxMessages": 4
+          }
+        ],
+        "keyPoints": [
+          {
+            "id": 1,
+            "category": "kommunikation",
+            "description": "Freundliche Begrüßung mit Bezugnahme auf den vorherigen Besuch",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 2,
+            "category": "kommunikation",
+            "description": "Erklären, dass bereits Informationen durch die Praxisschwester vorliegen",
+            "importance": "niedrig",
+            "points": 3
+          },
+          {
+            "id": 3,
+            "category": "empathie",
+            "description": "Schaffen einer vertrauensvollen Atmosphäre für das Gespräch über beunruhigende Symptome",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 4,
+            "category": "anamnese",
+            "description": "Detailliertes Erfragen der Husten-Symptomatik mit Blutbeimengungen",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 5,
+            "category": "anamnese",
+            "description": "Erfragen des zeitlichen Verlaufs der Symptome (wann begonnen, wie entwickelt)",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 6,
+            "category": "anamnese",
+            "description": "Abklären der tageszeitlichen Schwankungen der Symptome (morgens/abends)",
+            "importance": "mittel",
+            "points": 6
+          },
+          {
+            "id": 7,
+            "category": "anamnese",
+            "description": "Erfragen von Zusammenhängen mit körperlicher Aktivität oder emotionaler Belastung",
+            "importance": "mittel",
+            "points": 6
+          },
+          {
+            "id": 8,
+            "category": "kommunikation",
+            "description": "Ankündigung und Erklärung der körperlichen Untersuchung (Auskultation, Perkussion)",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 9,
+            "category": "diagnose",
+            "description": "Strukturierte Erläuterung der Blutanalyse und Spirometrie-Ergebnisse",
+            "importance": "mittel",
+            "points": 7
+          },
+          {
+            "id": 10,
+            "category": "kommunikation",
+            "description": "Verständliche Erklärung der auffälligen Röntgenbefunde",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 11,
+            "category": "diagnose",
+            "description": "Sachliche Darstellung der Differentialdiagnosen (Entzündung vs. Tumor)",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 12,
+            "category": "empathie",
+            "description": "Wahrnehmung und Ansprechen der emotionalen Reaktion des Patienten auf die Befunde",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 13,
+            "category": "kommunikation",
+            "description": "Klare Erläuterung der notwendigen weiterführenden Untersuchungen (Facharzt, Bronchoskopie, CT)",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 14,
+            "category": "kommunikation",
+            "description": "Erklärung des organisatorischen Ablaufs der Folgeuntersuchungen",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 15,
+            "category": "empathie",
+            "description": "Eingehen auf Fragen zur Untersuchung in patientengerechter Sprache",
+            "importance": "mittel",
+            "points": 6
+          },
+          {
+            "id": 16,
+            "category": "kommunikation",
+            "description": "Ausgewogene Information über mögliche Therapieoptionen bei Tumordiagnose",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 17,
+            "category": "empathie",
+            "description": "Vermittlung von Hoffnung ohne falsche Versprechungen",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 18,
+            "category": "kommunikation",
+            "description": "Abschluss mit konkretem Ausblick auf die nächsten Schritte und Erreichbarkeit bei Fragen",
+            "importance": "mittel",
+            "points": 5
+          }
+        ]
+      },
+      {
+        "id": 6,
+        "name": "Hans Dietrich Teil 3",
+        "age": 60,
+        "gender": "männlich",
+        "mainComplaint": "Bestätigte Diagnose eines zentral gelegenen nicht-kleinzelligen Lungenkarzinoms",
+        "difficulty": "schwer",
+        "specialFocus": ["Onkologie", "Pneumologie", "Diagnosegespräch", "Anamnese vor Operation"],
+        "thumbnailUrl": "assets/patient4-3.jpg",
+        "videoUrl": "assets/video3.mp4",
+        "description": "Hans Dietrich (60) wurde nach auffälligen Röntgenbefunden zu weiteren Untersuchungen in ein spezialisiertes Zentrum für Thoraxchirurgie überwiesen. Nach Abschluss der Diagnostik wurde ein zentral gelegenes nicht-kleinzelliges Lungenkarzinom bestätigt. Im Gespräch mit dem behandelnden Facharzt soll eine detaillierte präoperative Anamnese erhoben und die Diagnose sowie die Behandlungsoptionen besprochen werden.",
+        "conversationStages": [
+          {
+            "id": 1,
+            "name": "Begrüßung und Einleitung",
+            "description": "Vorstellung als Facharzt und Herstellen einer vertrauensvollen Atmosphäre",
+            "requiredPoints": [1, 2, 3],
+            "maxMessages": 3
+          },
+          {
+            "id": 2,
+            "name": "Anamneseerhebung vor Operation",
+            "description": "Erfassen wichtiger präoperativer Informationen und ergänzender Anamnese",
+            "requiredPoints": [4, 5, 6, 7, 8, 9, 10],
+            "maxMessages": 10
+          },
+          {
+            "id": 3,
+            "name": "Diagnoseübermittlung",
+            "description": "Mitteilung und Erklärung der bestätigten Krebsdiagnose",
+            "requiredPoints": [11, 12, 13],
+            "maxMessages": 4
+          },
+          {
+            "id": 4,
+            "name": "Therapieplanung",
+            "description": "Besprechung der Behandlungsoptionen und nächsten Schritte",
+            "requiredPoints": [14, 15, 16],
+            "maxMessages": 5
+          },
+          {
+            "id": 5,
+            "name": "Gesprächsabschluss",
+            "description": "Zusammenfassung, Klären offener Fragen und empathischer Abschluss",
+            "requiredPoints": [17, 18, 19],
+            "maxMessages": 3,
+            "triggerPhrases": ["auf wiedersehen", "alles gute", "schönen tag noch"]
+          }
+        ],
+        "keyPoints": [
+          {
+            "id": 1,
+            "category": "kommunikation",
+            "description": "Vorstellung als Facharzt für Thoraxchirurgie und Erklärung der eigenen Rolle",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 2,
+            "category": "empathie",
+            "description": "Einfühlsames Ansprechen der Sorgen des Patienten",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 3,
+            "category": "kommunikation",
+            "description": "Erklärung, dass vorliegende Unterlagen bekannt sind, aber die persönliche Schilderung wichtig ist",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 4,
+            "category": "anamnese",
+            "description": "Erfragen von Allergien, insbesondere Medikamentenallergien",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 5,
+            "category": "anamnese",
+            "description": "Erfragen von Medikamenten außerhalb der dokumentierten Liste",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 6,
+            "category": "anamnese",
+            "description": "Gezielte Nachfrage nach Einnahme von Antikoagulanzien",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 7,
+            "category": "anamnese",
+            "description": "Erfragen von früheren chirurgischen Eingriffen",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 8,
+            "category": "anamnese",
+            "description": "Erfragen von früheren Vollnarkosen und deren Verträglichkeit",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 9,
+            "category": "anamnese",
+            "description": "Abfrage von vorhandenen Implantaten (Knieprothese)",
+            "importance": "hoch",
+            "points": 8
+          },
+          {
+            "id": 10,
+            "category": "kommunikation",
+            "description": "Ankündigung und Erklärung der körperlichen Untersuchung vor Durchführung",
+            "importance": "mittel",
+            "points": 5
+          },
+          {
+            "id": 11,
+            "category": "kommunikation",
+            "description": "Klare und verständliche Mitteilung der Diagnose eines nicht-kleinzelligen Lungenkarzinoms",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 12,
+            "category": "empathie",
+            "description": "Angemessene Pause nach Diagnosestellung und Wahrnehmung der emotionalen Reaktion",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 13,
+            "category": "kommunikation",
+            "description": "Verständliche Erklärung der Bedeutung und des Stadiums der Erkrankung",
+            "importance": "hoch",
+            "points": 10
+          },
+          {
+            "id": 14,
+            "category": "kommunikation",
+            "description": "Erläuterung der möglichen Behandlungsoptionen (Operation, ggf. Strahlentherapie/Chemotherapie)",
+            "importance": "hoch","points": 10
+},
+{
+  "id": 15,
+  "category": "empathie",
+  "description": "Eingehen auf Ängste bezüglich der Behandlung und Operation",
+  "importance": "hoch",
+  "points": 8
+},
+{
+  "id": 16,
+  "category": "kommunikation",
+  "description": "Realistische Darstellung der Prognose mit ausgewogener Vermittlung von Hoffnung",
+  "importance": "hoch",
+  "points": 10
+},
+{
+  "id": 17,
+  "category": "kommunikation",
+  "description": "Zusammenfassung der besprochenen Inhalte und des weiteren Vorgehens",
+  "importance": "mittel",
+  "points": 6
+},
+{
+  "id": 18,
+  "category": "empathie",
+  "description": "Angebot zur Einbeziehung von Angehörigen in weitere Gespräche",
+  "importance": "mittel",
+  "points": 5
+},
+{
+  "id": 19,
+  "category": "kommunikation",
+  "description": "Information über Unterstützungsangebote (Psychoonkologie, Selbsthilfegruppen, Sozialdienst)",
+  "importance": "mittel",
+  "points": 7
+}
+]
+}
+]
+}

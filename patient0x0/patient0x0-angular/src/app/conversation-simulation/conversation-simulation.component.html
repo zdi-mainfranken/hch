@@ -1,0 +1,272 @@
+<div class="conversation-header">
+  <div class="patient-info" *ngIf="patientCase && !useSpeechInput">
+    <div class="patient-avatar">
+      <video autoplay loop muted playsinline>
+        <source [src]="patientCase.videoUrl" type="video/mp4">
+        <!-- Fallback image if video doesn't load -->
+        <img [src]="patientCase.thumbnailUrl" alt="Patientenbild">
+      </video>
+    </div>
+    <div class="patient-details">
+      <h2>{{ patientCase.name }}, {{ patientCase.age }}</h2>
+      <p>{{ patientCase.mainComplaint }}</p>
+    </div>
+  </div>
+
+  <div class="conversation-status">
+    <div class="header-controls">
+      <!-- Dropdown für Eingabemodus -->
+      <div class="mode-dropdown">
+        <button class="mode-dropdown-toggle" (click)="toggleModeDropdown($event)">
+          <span>{{ useSpeechInput ? 'Sprachmodus' : 'Textmodus' }}</span>
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="mode-dropdown-menu" [class.show]="isModeDropdownOpen">
+          <button class="mode-option" [class.active]="!useSpeechInput" (click)="toggleInputMode(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            <span>Textmodus</span>
+          </button>
+          <button class="mode-option" [class.active]="useSpeechInput" (click)="toggleInputMode(true)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            <span>Sprachmodus</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="progress-info">
+      <div class="stage-indicator" *ngIf="currentStage">
+        <strong>Aktuelle Phase:</strong> {{ currentStage.name }}
+      </div>
+      <div class="progress-bar">
+        <div class="progress" [style.width.%]="getOverallProgress()"></div>
+      </div>
+      <div class="stages-progress">
+        <div *ngFor="let stage of conversationStages; let i = index"
+             class="stage-marker"
+             [ngClass]="{'active': i === stageIndex, 'completed': i < stageIndex}"
+             [title]="stage.name">{{ i + 1 }}</div>
+      </div>
+    </div>
+    <div class="key-points-earned">
+      <span>Erreichte Punkte: {{ achievedKeyPointIds.size }}</span>
+    </div>
+  </div>
+</div>
+
+<div class="simulation-container">
+  <div *ngIf="loading" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <div>Patientenfall wird geladen...</div>
+  </div>
+
+  <div *ngIf="!loading" class="simulation-content" [ngClass]="{'speech-mode': useSpeechInput}">
+
+    <div class="conversation-main">
+
+
+      <div class="active-speaker-indicator" [class.visible]="isGeneratingResponse && useSpeechInput">
+        Patient spricht...
+      </div>
+
+      
+      <!-- Großes Patientenbild im Sprachmodus -->
+      <div *ngIf="useSpeechInput" class="patient-profile-large" [class.patient-speaking]="isGeneratingResponse">
+        <div class="patient-video-card">
+          <h2>{{ patientCase?.name }}, {{ patientCase?.age }}</h2>
+          
+          <!-- Video and mic button container -->
+          <div class="video-mic-container">
+            <!-- Video in a rectangular card -->
+            <div class="video-container" [class.speaking-animation]="isGeneratingResponse">
+              <video muted playsinline preload="auto">
+                <source [src]="patientCase?.videoUrl" type="video/mp4">
+                <!-- Fallback image if video doesn't load -->
+                <img [src]="patientCase?.thumbnailUrl" alt="Patient Image">
+              </video>
+            </div>
+            
+            <!-- Mic button positioned to the right of video -->
+            <div class="mic-button-container">
+              <app-audio-recording
+                (transcriptionComplete)="handleTranscription($event)"
+                (recordingStarted)="onRecordingStarted()"
+              ></app-audio-recording>
+              
+              <div *ngIf="lastTranscription" class="last-transcription">
+                Letzte Aufnahme: "{{ lastTranscription }}"
+                <button
+                  class="resend-button"
+                  (click)="useQuickResponse(lastTranscription)"
+                  [disabled]="conversationEnded || isGeneratingResponse"
+                >
+                  Erneut senden
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Content section with proper container -->
+          <div class="patient-video-content">
+            <p class="patient-complaint">{{ patientCase?.mainComplaint }}</p>
+          
+            <!-- Last patient response in speech mode -->
+            <div *ngIf="lastPatientResponse" class="last-patient-response">
+              <p>"{{ lastPatientResponse }}"</p>
+            </div>
+            
+            <!-- Audio-Wellen direkt einbinden -->
+            <app-audio-waves [isActive]="isGeneratingResponse"></app-audio-waves>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Remove the speech input container from the conversation-input -->
+      <div class="conversation-input" [hidden]="useSpeechInput">
+        <!-- Texteingabe (only show in text mode) -->
+        <form *ngIf="!useSpeechInput" [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="message-form" [ngClass]="{'disabled': isGeneratingResponse}">
+          <input type="text"
+                  formControlName="messageText"
+                  placeholder="Ihre Nachricht eingeben..."
+                  [disabled]="conversationEnded || isGeneratingResponse"
+                  class="message-input">
+          <button type="submit"
+                  [disabled]="messageForm.invalid || conversationEnded || isGeneratingResponse"
+                  class="send-button">
+            Senden
+          </button>
+        </form>
+      </div>
+ 
+
+      <!-- Normaler Chat im Textmodus -->
+      <div class="conversation-messages" *ngIf="!useSpeechInput">
+        <div *ngFor="let message of messages"
+             class="message"
+             [ngClass]="{
+               'user-message': message.sender === 'user',
+               'patient-message': message.sender === 'patient',
+               'system-message': message.sender === 'system'
+             }">
+          <div class="message-content" [ngClass]="{'loading-message': message.isLoading}">
+            <p *ngIf="!message.isLoading">{{ message.text }}</p>
+            <div *ngIf="message.isLoading" class="typing-indicator">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span class="timestamp">{{ message.timestamp | date:'HH:mm' }}</span>
+            <span *ngIf="message.stageId && message.stageId !== currentStageId" class="stage-badge">
+              {{ getStageNameById(message.stageId) }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      
+
+      <div class="conversation-input">
+        <!-- Spracheingabe -->
+        <div *ngIf="useSpeechInput" class="speech-input-container">
+
+          <div *ngIf="lastTranscription" class="last-transcription">
+            Letzte Aufnahme: "{{ lastTranscription }}"
+            <button
+              class="resend-button"
+              (click)="useQuickResponse(lastTranscription)"
+              [disabled]="conversationEnded || isGeneratingResponse"
+            >
+              Erneut senden
+            </button>
+          </div>
+        </div>
+
+        <!-- Texteingabe -->
+        <form *ngIf="!useSpeechInput" [formGroup]="messageForm" (ngSubmit)="sendMessage()" class="message-form" [ngClass]="{'disabled': isGeneratingResponse}">
+          <input type="text"
+                 formControlName="messageText"
+                 placeholder="Ihre Nachricht eingeben..."
+                 [disabled]="conversationEnded || isGeneratingResponse"
+                 class="message-input">
+          <button type="submit"
+                  [disabled]="messageForm.invalid || conversationEnded || isGeneratingResponse"
+                  class="send-button">
+            Senden
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Neues Popup-Hints-System ersetzt den alten conversation-footer -->
+    <div class="popup-hints" [ngClass]="{'open': showHints, 'closed': !showHints}">
+      <div class="popup-header">
+        <h3>Hinweise zur aktuellen Phase: {{ currentStage?.name }}</h3>
+        <button class="close-popup" (click)="toggleHints()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="popup-content" *ngIf="currentStage">
+        <p>{{ currentStage.description }}</p>
+        <p><strong>Erforderliche Schlüsselpunkte:</strong></p>
+        <ul>
+          <li *ngFor="let pointId of currentStage.requiredKeyPoints"
+              [ngClass]="{'achieved': achievedKeyPointIds.has(pointId)}">
+            {{ getKeyPointDescription(pointId) }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="popup-footer">
+        <div class="action-buttons">
+
+          <!-- <button 
+          class="debug-button" 
+          (click)="toggleDebugMode()" 
+         >
+          Debug {{ isGeneratingResponse ? 'Stop' : 'Start' }} Animation
+        </button> -->
+          <button class="next-stage-button"
+                  (click)="manuallyAdvanceStage()"
+                  [disabled]="conversationEnded || isGeneratingResponse || currentStageId === 'farewell'">
+            Zur nächsten Phase
+          </button>
+          <button class="evaluation-button"
+                  (click)="showEvaluation()">
+            Auswertung
+          </button>
+          <button class="end-button"
+                  (click)="endConversation()"
+                  [disabled]="conversationEnded || isGeneratingResponse">
+            Beenden
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Button zum Anzeigen des Popups -->
+    <button 
+      *ngIf="!showHints" 
+      class="show-hints-button" 
+      (click)="toggleHints()" 
+      title="Hinweise anzeigen">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="16" x2="12" y2="12"></line>
+        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+      </svg>
+    </button>
+  </div>
+</div>

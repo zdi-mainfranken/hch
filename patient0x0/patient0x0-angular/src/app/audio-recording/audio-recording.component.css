@@ -1,0 +1,83 @@
+audio-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+
+
+  .mic-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #f1f1f1;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 30px; /* Vergrößerte Padding */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    font-size: 16px; /* Größere Schrift */
+  }
+
+  
+  .mic-button:hover {
+    background-color: #e9e9e9;
+  }
+  
+  .mic-button.recording {
+    background-color: #ff4a4a;
+    color: white;
+    animation: pulse 1.5s infinite;
+  }
+  
+  .mic-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  
+  .mic-icon {
+    width: 24px; /* Größeres Icon */
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
+  .mic-text {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    margin-top: 10px;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  .interim-transcript {
+    margin-top: 10px;
+    color: #7f8c8d;
+    font-style: italic;
+    font-size: 14px;
+    max-width: 300px;
+    text-align: center;
+  }
+  
+  @keyframes pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(255, 74, 74, 0.4);
+    }
+    70% {
+      box-shadow: 0 0 0 10px rgba(255, 74, 74, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(255, 74, 74, 0);
+    }
+  }

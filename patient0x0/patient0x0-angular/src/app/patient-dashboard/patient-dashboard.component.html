@@ -1,0 +1,123 @@
+<div class="dashboard-container">
+    <header class="dashboard-header">
+      <h1>Medizinisches Gesprächstraining</h1>
+      <p>Wähle einen Patientenfall aus, um das Gespräch zu beginnen</p>
+    </header>
+
+    <div class="filter-section">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          placeholder="Suche nach Patientenfällen..." 
+          (input)="filterPatientCases()"
+        />
+      </div>
+      
+      <div class="filter-options">
+        <label>
+          Schwierigkeitsgrad:
+          <select [(ngModel)]="selectedDifficulty" (change)="filterPatientCases()">
+            <option value="">Alle</option>
+            <option value="leicht">Leicht</option>
+            <option value="mittel">Mittel</option>
+            <option value="schwer">Schwer</option>
+          </select>
+        </label>
+        
+        <label>
+          Spezieller Fokus:
+          <select [(ngModel)]="selectedFocus" (change)="filterPatientCases()">
+            <option value="">Alle</option>
+            <option *ngFor="let focus of availableFocusAreas" [value]="focus">
+              {{ focus }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="patient-cases-grid">
+      <div 
+        *ngFor="let patientCase of filteredPatientCases" 
+        class="patient-case-card"
+        (click)="selectPatientCase(patientCase)"
+        [class.selected]="selectedCase?.id === patientCase.id"
+      >
+        <div class="case-thumbnail">
+          <img [src]="patientCase.thumbnailUrl" alt="Patienten-Profilbild">
+          <span class="difficulty-badge" [ngClass]="patientCase.difficulty">
+            {{ patientCase.difficulty }}
+          </span>
+        </div>
+        <div class="case-info">
+          <h3>{{ patientCase.name }}, {{ patientCase.age }}</h3>
+          <p class="main-complaint">{{ patientCase.mainComplaint }}</p>
+          <div class="focus-tags">
+            <span *ngFor="let focus of patientCase.specialFocus" class="focus-tag">
+              {{ focus }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="selectedCase" class="case-details">
+      <h2>Falldetails: {{ selectedCase.name }}</h2>
+      <p>{{ selectedCase.description }}</p>
+      <button class="start-case-button" (click)="startConversation()">
+        Gespräch starten
+      </button>
+    </div>
+  </div>
+
+
+
+<!-- Modifiziertes Video-Popup für patient-dashboard.component.html -->
+<div class="video-popup-overlay" *ngIf="isVideoPlaying" (click)="videoEnded ? null : skipVideo()">
+  <div class="video-popup" (click)="$event.stopPropagation()">
+    <div class="video-popup-header">
+      <h3>Einführung zum Fall</h3>
+      <button class="close-button" (click)="skipVideo()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>  
+    <div class="video-container">
+      <video #videoPlayer (ended)="onVideoEnded()" autoplay>
+        <source [src]="this.selectedCase?.videoUrl" type="video/mp4">
+        Ihr Browser unterstützt keine Videos.
+      </video>
+    </div>
+    <div class="video-popup-footer" [ngClass]="{'options-visible': videoEnded}">
+      <!-- Skip-Button (nur sichtbar während das Video läuft) -->
+      <button class="skip-button" *ngIf="!videoEnded" (click)="skipVideo()">
+        Überspringen
+      </button>
+      
+      <!-- Optionen nach dem Video -->
+      <div class="mode-selection">
+        <h4>Wählen Sie den gewünschten Modus:</h4>
+        <div class="mode-buttons">
+          <button class="mode-button text-mode" (click)="navigateToSimulation('text')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+            Text
+          </button>
+          <button class="mode-button speech-mode" (click)="navigateToSimulation('speech')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+              <line x1="12" y1="19" x2="12" y2="23"></line>
+              <line x1="8" y1="23" x2="16" y2="23"></line>
+            </svg>
+            Sprache
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

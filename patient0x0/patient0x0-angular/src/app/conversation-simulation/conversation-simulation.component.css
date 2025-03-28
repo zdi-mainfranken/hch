@@ -1,0 +1,1216 @@
+/* Base Container */
+.simulation-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Loading Screen */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #555;
+  font-size: 18px;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.simulation-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+/* Header Section */
+.conversation-header {
+  background-color: white;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e1e4e8;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.patient-info {
+  display: flex;
+  align-items: center;
+}
+
+.patient-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 15px;
+  border: none;
+}
+
+.patient-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.patient-details h2 {
+  margin: 0 0 5px 0;
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+.patient-details p {
+  margin: 0;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+/* Conversation Status */
+.conversation-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.progress-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-bottom: 8px;
+}
+
+.stage-indicator {
+  font-size: 14px;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 8px;
+  background-color: #ecf0f1;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress {
+  height: 100%;
+  background-color: #3498db;
+  transition: width 0.3s ease;
+}
+
+.key-points-earned {
+  font-size: 14px;
+  color: #27ae60;
+  font-weight: bold;
+}
+
+/* Stage Progress Navigation */
+.stages-progress {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  width: 200px;
+}
+
+.stage-marker {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #e1e4e8;
+  color: #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.stage-marker.active {
+  background-color: #3498db;
+  color: white;
+  transform: scale(1.2);
+}
+
+.stage-marker.completed {
+  background-color: #27ae60;
+  color: white;
+}
+
+.stage-marker:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  width: calc(100% + 8px);
+  height: 2px;
+  background-color: #e1e4e8;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: -1;
+}
+
+.stage-marker.completed:not(:last-child)::after {
+  background-color: #27ae60;
+}
+
+/* Conversation Main Content */
+.conversation-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+.conversation-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  background-color: #f0f2f5;
+}
+
+/* Message Styles */
+.message {
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.user-message {
+  justify-content: flex-end;
+}
+
+.patient-message {
+  justify-content: flex-start;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 12px 15px;
+  border-radius: 18px;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.user-message .message-content {
+  background-color: #3498db;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.patient-message .message-content {
+  background-color: white;
+  color: #333;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.message-content p {
+  margin: 0 0 5px 0;
+}
+
+.timestamp {
+  font-size: 11px;
+  opacity: 0.7;
+  display: block;
+  text-align: right;
+}
+
+/* System Messages */
+.system-message {
+  justify-content: center;
+}
+
+.system-message .message-content {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  border: 1px dashed #d1d5db;
+  max-width: 90%;
+  text-align: center;
+  font-style: italic;
+  padding: 8px 15px;
+}
+
+.stage-badge {
+  font-size: 10px;
+  background-color: #f1f2f6;
+  color: #6b7280;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 5px;
+  display: inline-block;
+}
+
+/* Typing Indicator */
+.typing-indicator {
+  display: flex;
+  padding: 8px 0;
+}
+
+.typing-indicator span {
+  height: 8px;
+  width: 8px;
+  margin: 0 2px;
+  background-color: #9E9EA1;
+  border-radius: 50%;
+  display: inline-block;
+  animation: bounce 1.3s linear infinite;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes bounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-4px);
+  }
+}
+
+.loading-message {
+  min-width: 60px;
+}
+
+/* Input Area */
+.conversation-input {
+  background-color: white;
+  border-top: 1px solid #e1e4e8;
+  padding: 15px 20px;
+}
+
+.message-form {
+  display: flex;
+  gap: 10px;
+}
+
+.message-form.disabled {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px 15px;
+  border: 1px solid #dfe4ea;
+  border-radius: 24px;
+  font-size: 15px;
+}
+
+.message-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.message-input:disabled {
+  background-color: #f1f2f6;
+  cursor: not-allowed;
+}
+
+.send-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 24px;
+  padding: 0 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.send-button:hover {
+  background-color: #2980b9;
+}
+
+.send-button:disabled {
+  background-color: #b4b4b4;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Quick Responses */
+.quick-responses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+  padding: 0 20px;
+}
+
+.quick-response-btn {
+  background-color: #f1f2f6;
+  border: 1px solid #dfe4ea;
+  border-radius: 18px;
+  padding: 8px 15px;
+  font-size: 13px;
+  color: #2f3542;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.quick-response-btn:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.quick-response-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Mode Dropdown */
+.header-controls {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.mode-dropdown {
+  position: relative;
+  z-index: 100;
+}
+
+.mode-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #f8f9fa;
+  border: 1px solid #dfe4ea;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #4a5568;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.mode-dropdown-toggle:hover {
+  background-color: #f1f2f6;
+}
+
+.mode-dropdown-toggle span:first-child {
+  font-weight: 500;
+}
+
+.mode-dropdown-toggle svg {
+  transition: transform 0.2s ease;
+}
+
+.mode-dropdown.open .mode-dropdown-toggle svg {
+  transform: rotate(180deg);
+}
+
+.mode-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 5px);
+  right: 0;
+  width: 180px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.mode-dropdown-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.mode-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  background: none;
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: #4a5568;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.mode-option:hover {
+  background-color: #f8fafc;
+}
+
+.mode-option.active {
+  background-color: #edf2f7;
+  color: #3498db;
+  font-weight: 500;
+}
+
+.mode-option.active svg {
+  stroke: #3498db;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.hint-button, .end-button, .evaluation-button, .next-stage-button {
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+.hint-button {
+  background-color: #f1f2f6;
+  color: #2f3542;
+  border: 1px solid #dfe4ea;
+}
+
+.hint-button:hover {
+  background-color: #e9ecef;
+  border-color: #ced4da;
+}
+
+.evaluation-button {
+  background-color: #27ae60;
+  color: white;
+}
+
+.evaluation-button:hover {
+  background-color: #219653;
+}
+
+.end-button {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.end-button:hover {
+  background-color: #c0392b;
+}
+
+.next-stage-button {
+  background-color: #3498db;
+  color: white;
+}
+
+.next-stage-button:hover {
+  background-color: #2980b9;
+}
+
+.next-stage-button:disabled, .end-button:disabled {
+  background-color: #b4b4b4;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Speech Mode Specific Styles */
+.speech-mode.simulation-content {
+  background-color: #f9f9fb;
+}
+
+.speech-mode .conversation-main {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  max-height: calc(100vh - 250px);
+}
+
+/* Patient Profile in Speech Mode */
+.patient-profile-large {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #f9f9fb;
+}
+
+.patient-video-card {
+  width: 85%;
+  max-width: 1000px;
+  overflow: visible;
+  border: none;
+  text-align: center;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Video Container - Modified for better proportions */
+.video-container {
+  width: 75%; /* Reduced width to make room for mic button */
+  height: 0;
+  padding-bottom: 35%; /* Adjusted aspect ratio */
+  position: relative;
+  overflow: hidden;
+  background-color: #f1f1f1;
+  margin-bottom: 0;
+  transition: all 0.3s ease;
+}
+
+
+.video-container video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Animation for when the patient is speaking */
+.video-container.speaking-animation {
+  box-shadow: 0 0 0 3px #ff6b6b;
+}
+
+
+.patient-complaint {
+  font-size: 18px;
+  color: #7f8c8d;
+  line-height: 1.6;
+  padding: 0 30px;
+  margin-bottom: 15px;
+}
+
+.patient-video-content {
+  padding: 0 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.patient-video-card h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin: 20px 0;
+  padding: 0 20px;
+}
+
+.patient-profile-large h2 {
+  font-size: 24px;
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+.large-avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #3498db;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.large-avatar:hover {
+  transform: scale(1.05);
+}
+
+.patient-profile-large p {
+  font-size: 18px;
+  color: #7f8c8d;
+  max-width: 500px;
+  line-height: 1.6;
+}
+
+.last-patient-response {
+  background-color: #f9f9fb;
+  padding: 15px;
+  border-radius: 12px;
+  margin: 15px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  text-align: left;
+}
+.last-patient-response p {
+  font-style: italic;
+  margin: 0;
+  color: #4a5568;
+}
+
+/* Speech Input Container */
+.speech-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.last-transcription {
+  margin-top: 10px;
+  color: #7f8c8d;
+  font-size: 14px;
+  font-style: italic;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.resend-button {
+  background-color: #f1f2f6;
+  border: 1px solid #dfe4ea;
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 12px;
+  color: #2f3542;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.resend-button:hover {
+  background-color: #e9ecef;
+}
+
+.resend-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Speech Animation and Indicators */
+@keyframes breath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@keyframes speaking-pulse {
+  0% {
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.7), 0 0 15px rgba(46, 204, 113, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 5px rgba(46, 204, 113, 0.4), 0 0 15px rgba(46, 204, 113, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 3px rgba(46, 204, 113, 0.7), 0 0 15px rgba(46, 204, 113, 0.4);
+  }
+}
+/* Repositioned active-speaker-indicator */
+.active-speaker-indicator {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #27ae60;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  line-height: 1.2;
+  z-index: 100;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.1s ease-out; /* Schnellere Transition */
+  opacity: 0;
+  pointer-events: none;
+}
+
+.active-speaker-indicator.visible {
+  opacity: 1;
+}
+
+.active-speaker-indicator,
+.patient-speaking .large-avatar,
+app-audio-waves,
+.last-patient-response {
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+
+
+
+.patient-profile-large {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px;
+  background-color: #f9f9fb;
+  overflow-y: auto;
+  max-height: calc(100vh - 200px);
+}
+
+.patient-speaking .large-avatar {
+  border-color: #2ecc71;
+  animation: speaking-pulse 2s infinite;
+  transition: border-color 0.1s ease-out;
+}
+.patient-speaking app-audio-waves {
+  opacity: 1;
+  bottom: 10px;
+  transform: translateY(0);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+[class*="patient-speaking"] {
+  transition: all 0.2s ease;
+}
+
+.patient-speaking .last-patient-response {
+  background-color: #f1f9f5;
+  box-shadow: 0 2px 12px rgba(46, 204, 113, 0.15);
+  transform: scale(1.02);
+}
+
+app-audio-waves {
+  transition: opacity 0.1s ease-out, transform 0.1s ease-out;
+  opacity: 0.3;
+}
+
+.patient-speaking app-audio-waves {
+  opacity: 1;
+}
+.debug-animations .patient-speaking .large-avatar {
+  animation: speaking-pulse 2s infinite;
+  border-color: red;
+}
+
+
+.patient-speaking .video-container {
+  box-shadow: 0 0 0 3px #2ecc71, 0 0 15px rgba(46, 204, 113, 0.5);
+  animation: speaking-pulse 2s infinite;
+}
+
+.video-mic-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+  align-items: stretch;
+}
+
+.patient-speaking .last-patient-response {
+  background-color: #f1f9f5;
+  box-shadow: 0 2px 12px rgba(46, 204, 113, 0.15);
+  transform: scale(1.02);
+}
+
+
+.patient-avatar video {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: none;
+}
+
+/* Style for the large video in speech mode */
+.patient-profile-large video.large-avatar {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 15px;
+  border: none; /* This removes the border */
+  transition: all 0.3s ease;
+}
+
+/* Optional: Add a subtle animation when the patient is speaking */
+.patient-profile-large video.speaking-animation {
+  border: none;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+}
+
+/* Make sure videos are responsive */
+@media (max-width: 768px) {
+  .patient-profile-large video.large-avatar {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+/* Mic Button Styles */
+.mic-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+.mic-button-container {
+  width: 25%;
+  padding: 0 10px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #f9f9fb;
+  border-top-right-radius: 15px;
+}
+
+.mic-button:hover {
+  background-color: #e9e9e9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.mic-button.recording {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.mic-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.speech-button-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.speech-instruction {
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: #4b5563;
+  text-align: center;
+}
+
+/* Popup Hints */
+.popup-hints {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 350px;
+  max-height: 500px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 1000;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.popup-hints.closed {
+  transform: translateY(30px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.popup-hints.open {
+  transform: translateY(0);
+  opacity: 1;
+  animation: slideInUp 0.3s forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.popup-header {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.popup-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.close-popup {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.close-popup:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.popup-content {
+  padding: 15px;
+  overflow-y: auto;
+  max-height: 350px;
+}
+
+.popup-content p {
+  margin: 0 0 10px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.5;
+}
+
+.popup-content ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.popup-content li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #555;
+  position: relative;
+}
+
+.popup-content li.achieved {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.popup-content li.achieved::before {
+  content: "✓";
+  position: absolute;
+  left: -18px;
+  color: #27ae60;
+}
+
+.popup-footer {
+  padding: 12px 15px;
+  border-top: 1px solid #e1e4e8;
+  background-color: #f8f9fa;
+}
+
+.popup-footer .action-buttons {
+  justify-content: space-between;
+}
+
+.popup-footer .next-stage-button,
+.popup-footer .evaluation-button,
+.popup-footer .end-button {
+  padding: 8px 12px;
+  font-size: 13px;
+  flex: 1;
+  max-width: 33%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.show-hints-button {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.show-hints-button:hover {
+  transform: scale(1.1);
+  background-color: #2980b9;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .conversation-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .header-controls {
+    margin-bottom: 15px;
+    justify-content: flex-end;
+  }
+  
+  .conversation-status {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .progress-info {
+    align-items: center;
+  }
+  
+  .mode-dropdown {
+    z-index: 110;
+  }
+  
+  .stages-progress {
+    width: 150px;
+  }
+  
+  .stage-marker {
+    width: 20px;
+    height: 20px;
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .popup-hints {
+    width: calc(100% - 40px);
+    max-height: 400px;
+  }
+  
+  .popup-footer .action-buttons {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .popup-footer .next-stage-button,
+  .popup-footer .evaluation-button,
+  .popup-footer .end-button {
+    max-width: 100%;
+  }
+}
+
+@media (max-height: 700px) {
+  .speech-mode .patient-profile-large {
+    padding: 10px;
+    min-height: 200px;
+  }
+  
+  .speech-mode .large-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .speech-mode .patient-profile-large h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .speech-mode .patient-profile-large p {
+    font-size: 14px;
+  }
+  
+  .speech-mode .speech-button-area {
+    padding: 10px;
+  }
+  
+  .speech-mode .hints-section {
+    margin-bottom: 10px;
+  }
+  
+  .speech-mode .hints-section h3 {
+    font-size: 14px;
+  }
+  
+  .speech-mode .hints-section p {
+    font-size: 13px;
+    margin-bottom: 5px;
+  }
+  
+  .speech-mode .hints-section ul {
+    margin: 0;
+    padding-left: 15px;
+  }
+  
+  .speech-mode .hints-section li {
+    font-size: 13px;
+    margin-bottom: 3px;
+  }
+}
+
+
+.patient-complaint {
+  font-size: 18px;
+  color: #7f8c8d;
+  line-height: 1.6;
+  padding: 0 20px;
+  margin-bottom: 15px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .patient-video-card {
+    width: 95%;
+  }
+}
+
+@media (max-height: 700px) {
+  .patient-video-card h2 {
+    font-size: 20px;
+    margin: 15px 0;
+  }
+  
+  .patient-complaint {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .video-container {
+    padding-bottom: 50%; /* Slightly shorter for smaller screens */
+  }
+}
