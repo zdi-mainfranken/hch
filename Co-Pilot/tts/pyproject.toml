@@ -1,0 +1,17 @@
+[project]
+name = "text-to-speech"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Lilly",email = "lg1527058@gmail.com"}
+]
+requires-python = ">=3.9.0, <3.12"
+dependencies = [
+    "torch (>=2.6.0,<3.0.0)",
+    "tts (>=0.22.0,<0.23.0)",
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

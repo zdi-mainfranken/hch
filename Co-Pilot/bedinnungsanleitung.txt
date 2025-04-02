@@ -1,0 +1,30 @@
+CARDIOHELP System-Vorbereitung in 4 Schritten
+
+Schritt 1: Montage der Komponenten
+
+Halterung für CARDIOHELP-i montieren: HKH 9102-M für 38mm Mastdurchmesser verwenden
+Transportzubehör vorbereiten: Transporthalter HKH 8860, CARDIOHELP Emergency Drive in Transportbox sichern
+CARDIOHELP Emergency Drive positionieren: Halterung für Notantrieb montieren (HKH 9101-R/M)
+CARDIOHELP-i aufstellen: Gerät auf Halterung befestigen, Schutzbügel öffnen, Stromversorgung anschließen
+
+Schritt 2: Anschluss von Sensoren und externen Systemen
+
+Sensoren anschließen: Stecker anhand der roten Markierungen ausrichten
+Externe Geräte verbinden: Datenaufzeichnungssystem über USB-Typ-B, externes Alarmsystem
+Venösen Messkopf anschließen: An "Venöser Messkopf"-Anschluss und in Halterung platzieren
+Sensorkabel für Einmalprodukt verbinden: Vor dem Einschalten anschließen für korrekte Erkennung
+
+Schritt 3: Einschalten und Systemkonfiguration
+
+Einschalten und Selbsttest: Venösen Messkopf vor Einschalten sichern, "Ein/Aus"-Taste drücken
+Grundeinstellungen konfigurieren: Helligkeit, Lautstärke, Sprache, Zeit/Datum einstellen
+Systeminformationen prüfen: Software-Version, Betriebsstunden, Batteriestatus kontrollieren
+Key-User-Funktionen (passwortgeschützt): Alarmkonfiguration, Klinikkonfiguration speichern
+
+Schritt 4: Anwendungsvorbereitung und Funktionstest
+
+Perfusion vorbereiten: Einmalprodukt montieren, integrierte Sensorik anschließen
+Erforderliche Sensoren positionieren: Fluss-/Blasensensor, Temperatursensoren, Drucksensoren
+Funktionstests durchführen: Blasenüberwachung, Niveauüberwachung, Messkopf-Status prüfen
+Kalibrierungen vornehmen: Nullkalibrierung für Drucksensoren, Fluss-Off-Set-Kalibrierung
+Abschließende Überprüfung: Sicherheitssiegel, Bedienelemente, Sensorfunktionen, Notantrieb
